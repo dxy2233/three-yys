@@ -119,12 +119,25 @@
 
     <baseDialog :visible.sync="dialogEditAssets">
       <template #title>编辑资产</template>
-      <baseForm ref="assetsEditForm" :form="editAssetsForm">
-        <!-- <baseFormItem label="序号" prop="serialNumber" required>
+      <baseForm
+        ref="assetsEditForm"
+        :form="editAssetsForm"
+        :rules="editAssetsRules"
+      >
+        <baseFormItem label="序号">
           <input type="text" v-model="editAssetsForm.serialNumber" />
-        </baseFormItem> -->
-        <baseFormItem label="设备名称">
+        </baseFormItem>
+        <baseFormItem label="设备名称" prop="deviceName" required>
           <input type="text" v-model="editAssetsForm.deviceName" />
+        </baseFormItem>
+        <baseFormItem label="设备类型" prop="deviceSort" required>
+          <select v-model="editAssetsForm.deviceSort">
+            <option value="服务器">服务器</option>
+            <option value="网络设备">网络设备</option>
+            <option value="安全设备">安全设备</option>
+            <option value="web应用系统">web应用系统</option>
+            <option value="其他">其他</option>
+          </select>
         </baseFormItem>
         <baseFormItem label="设备厂家/型号">
           <input type="text" v-model="editAssetsForm.deviceType" />
@@ -135,7 +148,16 @@
         <baseFormItem label="机柜编号">
           <input type="text" v-model="editAssetsForm.cabinetNumber" />
         </baseFormItem>
-        <baseFormItem label="操作系统版本">
+        <baseFormItem
+          v-if="editAssetsForm.deviceSort === '服务器'"
+          key="systemVersion1"
+          label="操作系统版本"
+          prop="systemVersion"
+          required
+        >
+          <input type="text" v-model="editAssetsForm.systemVersion" />
+        </baseFormItem>
+        <baseFormItem v-else key="systemVersion2" label="操作系统版本">
           <input type="text" v-model="editAssetsForm.systemVersion" />
         </baseFormItem>
         <baseFormItem label="中间件版本">
@@ -145,13 +167,13 @@
           <input type="text" v-model="editAssetsForm.dbVersion" />
         </baseFormItem>
         <baseFormItem label="私网IP地址">
-          <input type="text" v-model="editAssetsForm.privateAddress" />
+          <input type="text" v-model="editAssetsForm.privateAddress" disabled />
         </baseFormItem>
         <baseFormItem label="DCN网地址">
-          <input type="text" v-model="editAssetsForm.dcnAddress" />
+          <input type="text" v-model="editAssetsForm.dcnAddress" disabled />
         </baseFormItem>
         <baseFormItem label="公网IP地址">
-          <input type="text" v-model="editAssetsForm.publicAddress" />
+          <input type="text" v-model="editAssetsForm.publicAddress" disabled />
         </baseFormItem>
         <baseFormItem label="应用WEB URL地址">
           <input type="text" v-model="editAssetsForm.url" />
@@ -171,13 +193,13 @@
 </template>
 
 <script>
+import { getProcessList } from '@/api/process'
 import {
-  getProcessList,
   getDeviceList,
   importDevice,
   saveDevice,
   deleteDeviceById,
-} from '@/api/process'
+} from '@/api/device'
 import { downloadTemplate } from '@/api/template'
 import { orgTreeSearch } from '@/assets/mixin/common'
 import { mapGetters } from 'vuex'
@@ -231,6 +253,17 @@ export default {
         port: '',
         remark: '',
       },
+      editAssetsRules: {
+        deviceName: [
+          { required: true, message: '请输入设备名称', trigger: 'blur' },
+        ],
+        deviceSort: [
+          { required: true, message: '请选择设备类型', trigger: 'change' },
+        ],
+        systemVersion: [
+          { required: true, message: '请输入操作系统版本', trigger: 'change' },
+        ],
+      },
     }
   },
   computed: {
@@ -249,7 +282,7 @@ export default {
     openDialog(type, info) {
       this.rowInfo = info
       getDeviceList(info.processId).then((res) => {
-        this.detailTable = res.data
+        this.detailTable = res.data.deviceList
         this.dialog = true
       })
     },
@@ -276,7 +309,7 @@ export default {
       importDevice(this.inputAssetsFormData).then((res) => {
         this.$message({ content: res.message, type: 'success' })
         getDeviceList(this.rowInfo.processId).then((res) => {
-          this.detailTable = res.data
+          this.detailTable = res.data.deviceList
           this.dialogInputAssets = false
         })
       })
@@ -298,7 +331,7 @@ export default {
       saveDevice(this.editAssetsForm).then((res) => {
         this.$message({ content: res.message, type: 'success' })
         getDeviceList(this.rowInfo.processId).then((res) => {
-          this.detailTable = res.data
+          this.detailTable = res.data.deviceList
         })
         this.dialogEditAssets = false
       })
@@ -308,7 +341,7 @@ export default {
         deleteDeviceById(id).then((res) => {
           this.$message({ content: res.message, type: 'success' })
           getDeviceList(this.rowInfo.processId).then((res) => {
-            this.detailTable = res.data
+            this.detailTable = res.data.deviceList
           })
         })
       })

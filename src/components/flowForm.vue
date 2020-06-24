@@ -155,10 +155,7 @@
               </div>
             </div>
 
-            <div class="btn">
-              <!-- <button @click="initConstruction(true)">
-                <svg-icon icon-class="search" />搜索
-              </button> -->
+            <!-- <div class="btn">
               <button
                 v-if="constructionTable.importVisible"
                 @click="uploadFile(allData.constructionBO, 6)"
@@ -171,7 +168,7 @@
               >
                 <svg-icon icon-class="down" />下载模板
               </button>
-            </div>
+            </div> -->
             <div class="assets-wrap">
               <baseTable :tableData="constructionTable.deviceList">
                 <baseCol prop="serialNumber" label="序号" />
@@ -190,7 +187,7 @@
                 <baseCol prop="url" label="URL地址" />
                 <baseCol prop="port" label="开放端口" />
                 <baseCol prop="remark" label="备注" />
-                <baseCol label="操作">
+                <!-- <baseCol label="操作">
                   <template #button="props">
                     <button
                       v-show="props.row.editVisible"
@@ -206,7 +203,7 @@
                       删除
                     </button>
                   </template>
-                </baseCol>
+                </baseCol> -->
               </baseTable>
             </div>
             <!-- 基线 -->
