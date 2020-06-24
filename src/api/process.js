@@ -23,17 +23,6 @@ export function deleteConference(id) {
 }
 
 /**
- * @description 建设节点：删除设备
- */
-export function deleteDeviceById(id) {
-  return request({
-    url: '/process/deleteDeviceById',
-    method: 'get',
-    params: { id },
-  })
-}
-
-/**
  * @description 根据ID获取会议纪要详细信息
  */
 export function getConferenceById(id) {
@@ -41,17 +30,6 @@ export function getConferenceById(id) {
     url: '/process/getConferenceById',
     method: 'get',
     params: { id },
-  })
-}
-
-/**
- * @description 建设查询设备列表
- */
-export function getDeviceList(processId) {
-  return request({
-    url: '/process/getDeviceList',
-    method: 'get',
-    params: { processId },
   })
 }
 
@@ -85,28 +63,6 @@ export function getProcessList(data) {
 }
 
 /**
- * @description 建设节点：导入设备
- */
-export function importDevice(data) {
-  return request({
-    url: '/process/importDevice',
-    method: 'post',
-    data,
-  })
-}
-
-/**
- * @description 漏洞通过：processId 流程ID
- */
-export function passFlawByProcessId(processId) {
-  return request({
-    url: '/process/passFlawByProcessId',
-    method: 'get',
-    params: { processId },
-  })
-}
-
-/**
  * @description 暂停项目：id 流程ID；pause 为true是暂停，为false是恢复；reason 暂停或恢复的原因
  */
 export function pauseProcess(id, pause, reason) {
@@ -114,17 +70,6 @@ export function pauseProcess(id, pause, reason) {
     url: '/process/pauseProcess',
     method: 'get',
     params: { id, pause, reason },
-  })
-}
-
-/**
- * @description 申请复评
- */
-export function reviewByFileId(fileId) {
-  return request({
-    url: '/process/reviewByFileId',
-    method: 'get',
-    params: { fileId },
   })
 }
 
@@ -202,12 +147,8 @@ export function saveConference(data) {
  * @param saveVisible 保存按钮是否可见
  * @param editVisible 编辑按钮是否可见
  * @param archiveVisible 归档按钮是否可见
- * @param passStatus 漏洞是否通过
+ * @param evaluatVisible 安全评估报告是否可见
  * @param conferenceVisible 新增会议纪要按钮是否可见
- * @param importVisible 导入资产是否可见
- * @param passVisible 漏洞通过是否可见
- * @param uploadVisible 上传漏洞扫描报告是否可见
- * @param flawBOList 漏洞扫描报告
  * @param firmId 项目厂商
  * @param status 状态：未开始；进行中；完成；项目暂停
  */
@@ -239,36 +180,6 @@ export function saveConstruction(data) {
 export function saveDesign(data) {
   return request({
     url: '/process/saveDesign',
-    method: 'post',
-    data,
-  })
-}
-
-/**
- * @description 建设节点：保存设备
- * @param id ID
- * @param processId 流程ID
- * @param importName 导入人姓名
- * @param serialNumber 序号
- * @param deviceName 设备名称
- * @param deviceType 设备厂家/型号
- * @param position 机房位置
- * @param cabinetNumber 机柜编号
- * @param systemVersion 操作系统版本
- * @param midVersion 中间件版本
- * @param dbVersion 数据库版本
- * @param privateAddress 私网IP地址
- * @param dcnAddress DCN网地址
- * @param publicAddress 公网IP地址
- * @param url 应用WEB URL地址
- * @param port 端口
- * @param remark 备注
- * @param deleteVisible 删除按钮是否可见
- * @param editVisible 编辑按钮是否可见
- */
-export function saveDevice(data) {
-  return request({
-    url: '/process/saveDevice',
     method: 'post',
     data,
   })

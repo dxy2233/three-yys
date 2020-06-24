@@ -1,7 +1,18 @@
 import request from '@/utils/request'
 
 /**
- * @description 根据ID删除项目备案信息
+ * @description 删除单个文件
+ */
+export function deleteFile(path) {
+  return request({
+    url: '/reportcommon/deleteFile',
+    method: 'get',
+    params: { path },
+  })
+}
+
+/**
+ * @description 删除报告
  */
 export function deleteReport(fileId) {
   return request({
@@ -12,24 +23,35 @@ export function deleteReport(fileId) {
 }
 
 /**
- * @description 获取渗透测试
+ * @description 通过基线和渗透列表 :type 1 基线 2 渗透
  */
-export function getPenetrationByProjectId(projectId, status) {
+export function getBaseOnlineAndPenetration(processId, type) {
   return request({
-    url: '/reportcommon/getPenetrationByProjectId',
+    url: '/reportcommon/getBaseOnlineAndPenetration',
     method: 'get',
-    params: { projectId, status },
+    params: { processId, type },
   })
 }
 
 /**
- * @description 获取项目基线
+ * @description 根据设备id获取基线获 status :1 初查 ,  2 复查
  */
-export function getProjectReport(projectId, status) {
+export function getBaselineByDeviceId(deviceId, status) {
   return request({
-    url: '/reportcommon/getProjectReport',
+    url: '/reportcommon/getBaselineByDeviceId',
     method: 'get',
-    params: { projectId, status },
+    params: { deviceId, status },
+  })
+}
+
+/**
+ * @description 获取渗透测试 status: 2, 复查
+ */
+export function getPenetrationByProcessId(processId, status) {
+  return request({
+    url: '/reportcommon/getPenetrationByProcessId',
+    method: 'get',
+    params: { processId, status },
   })
 }
 
@@ -50,6 +72,18 @@ export function getReportList(data) {
 }
 
 /**
+ * @description 基线初查初始化
+ * @param dictionIds 资产ids
+ */
+export function getReportListData(data) {
+  return request({
+    url: '/reportcommon/getReportListData',
+    method: 'post',
+    data,
+  })
+}
+
+/**
  * @description 渗透整改完成
  */
 export function reformPenetration(penetrationId) {
@@ -62,8 +96,12 @@ export function reformPenetration(penetrationId) {
 
 /**
  * @description 项目基线保存
- * @param projectId 项目id
- * @param childData 基线数据
+ * @param reportUserBaseBO 用户单位信息
+ * @param deviceId 设备id
+ * @param osCode 操作系统
+ * @param middlewareCode 中间件
+ * @param dataBaseCode 数据库
+ * @param childData 基线数据 Linux
  * @param status 状态 ：初查 1 ， 复查 2
  */
 export function saveBaseline(data) {
@@ -76,15 +114,9 @@ export function saveBaseline(data) {
 
 /**
  * @description 保存渗透
- * @param penetrationId 渗透id
- * @param projectId 项目ID
- * @param leakTitle 漏洞名称
- * @param hazardLevel 危害级别
- * @param cevNum CVE 编号
- * @param leakAddress 漏洞地址
- * @param leakHazardDesc 漏洞危害说明
- * @param reformDesc 整改建议
- * @param imgs 图片地址
+ * @param reportUserBaseBO 用户信息
+ * @param reportPenetrationBO 渗透报告基本信息
+ * @param processId 流程id
  */
 export function savePenetration(data) {
   return request({
@@ -95,7 +127,20 @@ export function savePenetration(data) {
 }
 
 /**
- * @description 上传报告
+ * @description 保存复查渗透
+ * @param processId 流程ID
+ * @param reportUserBaseBO 用户单位基本信息
+ */
+export function saveReviewPenetration(data) {
+  return request({
+    url: '/reportcommon/saveReviewPenetration',
+    method: 'post',
+    data,
+  })
+}
+
+/**
+ * @description 上传报告图片
  */
 export function uploadReport(data) {
   return request({

@@ -154,11 +154,30 @@
                 </select>
               </div>
             </div>
+
+            <div class="btn">
+              <!-- <button @click="initConstruction(true)">
+                <svg-icon icon-class="search" />搜索
+              </button> -->
+              <button
+                v-if="constructionTable.importVisible"
+                @click="uploadFile(allData.constructionBO, 6)"
+              >
+                <svg-icon icon-class="import" />导入资产
+              </button>
+              <button
+                v-if="constructionTable.importVisible"
+                @click="downloadTem"
+              >
+                <svg-icon icon-class="down" />下载模板
+              </button>
+            </div>
             <div class="assets-wrap">
-              <baseTable :tableData="constructionTable">
+              <baseTable :tableData="constructionTable.deviceList">
                 <baseCol prop="serialNumber" label="序号" />
                 <baseCol prop="importName" label="导入人" />
                 <baseCol prop="deviceName" label="设备名称" />
+                <baseCol prop="deviceSort" label="设备类型" />
                 <baseCol prop="deviceType" label="设备厂家/型号" />
                 <baseCol prop="position" label="机房位置" />
                 <baseCol prop="cabinetNumber" label="机柜编号" />
@@ -171,64 +190,349 @@
                 <baseCol prop="url" label="URL地址" />
                 <baseCol prop="port" label="开放端口" />
                 <baseCol prop="remark" label="备注" />
+                <baseCol label="操作">
+                  <template #button="props">
+                    <button
+                      v-show="props.row.editVisible"
+                      @click="openBuild(props.row)"
+                    >
+                      编辑
+                    </button>
+                    <button
+                      v-show="props.row.deleteVisible"
+                      class="remove"
+                      @click="removeBuild(props.row.id)"
+                    >
+                      删除
+                    </button>
+                  </template>
+                </baseCol>
               </baseTable>
             </div>
-            <!-- <basePagination
-              :currentPage.sync="constructionTable.startPage"
-              :total="constructionTable.total"
-              :pages="constructionTable.pages"
-              @changeCurrentPage="initConstruction"
-            /> -->
+            <!-- 基线 -->
+            <div class="baseline report-wrap">
+              <h5>基线检查报告</h5>
+              <button
+                v-if="baseLine.startVisble"
+                @click="toNewPage(1, row.processId, 1)"
+                :disabled="stepData[step - 1].lock"
+                class="major"
+                style="margin-right: 5px;"
+              >
+                初查
+              </button>
+              <baseTable :tableData="baseLine.reportChildBOS">
+                <baseCol prop="assetInfo" label="资产信息" />
+                <baseCol label="初查基线检查报告名称">
+                  <template #button="props">
+                    <span
+                      @click="
+                        downloadBaseSeepFlaw(props.row.reportBasicBO.path)
+                      "
+                      class="link"
+                    >
+                      {{ props.row.reportBasicBO.name }}
+                    </span>
+                  </template>
+                </baseCol>
+                <baseCol prop="mediumNum" label="初查基线检查报告信息">
+                  <template #button="props">
+                    <div v-if="props.row.reportBasicBO.name">
+                      <span class="info"
+                        ><i>姓名：</i
+                        ><i>{{ props.row.reportBasicBO.nickName }}</i>
+                      </span>
+                      <span class="info"
+                        ><i>单位名称：</i
+                        ><i>{{ props.row.reportBasicBO.orgName }}</i></span
+                      >
+                      <span class="info"
+                        ><i>联系方式：</i
+                        ><i>{{ props.row.reportBasicBO.phone }}</i>
+                      </span>
+                      <span class="info"
+                        ><i>填写时间：</i
+                        ><i>{{ props.row.reportBasicBO.uploadTime }}</i></span
+                      >
+                    </div>
+                  </template>
+                </baseCol>
+                <baseCol prop="highNum" label="复查基线检查报告名称">
+                  <template #button="props">
+                    <span
+                      @click="
+                        downloadBaseSeepFlaw(props.row.reviewReportBasicBO.path)
+                      "
+                      class="link"
+                    >
+                      {{ props.row.reviewReportBasicBO.name }}
+                    </span>
+                  </template>
+                </baseCol>
+                <baseCol prop="highNum" label="复查基线检查报告信息">
+                  <template #button="props">
+                    <div v-if="props.row.reviewReportBasicBO.name">
+                      <span class="info"
+                        ><i>姓名：</i
+                        ><i>{{ props.row.reviewReportBasicBO.nickName }}</i>
+                      </span>
+                      <span class="info"
+                        ><i>单位名称：</i
+                        ><i>{{ props.row.reviewReportBasicBO.orgName }}</i>
+                      </span>
+                      <span class="info"
+                        ><i>联系方式：</i
+                        ><i>{{ props.row.reviewReportBasicBO.phone }}</i>
+                      </span>
+                      <span class="info"
+                        ><i>填写时间：</i
+                        ><i>{{ props.row.reviewReportBasicBO.uploadTime }}</i>
+                      </span>
+                    </div>
+                  </template>
+                </baseCol>
+                <baseCol label="操作">
+                  <template #button="props">
+                    <button
+                      v-if="props.row.editVisble"
+                      :disabled="stepData[step - 1].lock"
+                      @click="
+                        toNewPage(
+                          1,
+                          row.processId,
+                          1,
+                          props.row.deviceId,
+                          props.row.assetInfo
+                        )
+                      "
+                    >
+                      编辑
+                    </button>
+                    <button
+                      v-if="props.row.reviewVisble"
+                      :disabled="stepData[step - 1].lock"
+                      @click="
+                        toNewPage(
+                          1,
+                          row.processId,
+                          2,
+                          props.row.deviceId,
+                          props.row.assetInfo
+                        )
+                      "
+                    >
+                      复查
+                    </button>
+                  </template>
+                </baseCol>
+              </baseTable>
+            </div>
+            <!-- 渗透 -->
+            <div class="report-wrap infiltration">
+              <h5>渗透测试报告</h5>
+              <button
+                v-if="seep.startVisble"
+                @click="toNewPage(2, row.processId, 1)"
+                :disabled="stepData[step - 1].lock"
+                class="major"
+                style="margin-right: 5px;"
+              >
+                初查
+              </button>
+              <baseTable :tableData="seep.reportChildBOS">
+                <baseCol label="初查渗透测试报告名称">
+                  <template #button="props">
+                    <span
+                      @click="
+                        downloadBaseSeepFlaw(props.row.reportBasicBO.path)
+                      "
+                      class="link"
+                    >
+                      {{ props.row.reportBasicBO.name }}
+                    </span>
+                  </template>
+                </baseCol>
+                <baseCol prop="mediumNum" label="初查渗透测试报告信息">
+                  <template #button="props">
+                    <div v-if="props.row.reportBasicBO.name">
+                      <span class="info"
+                        ><i>姓名：</i
+                        ><i>{{ props.row.reportBasicBO.nickName }}</i>
+                      </span>
+                      <span class="info"
+                        ><i>单位名称：</i
+                        ><i>{{ props.row.reportBasicBO.orgName }}</i>
+                      </span>
+                      <span class="info"
+                        ><i>联系方式：</i
+                        ><i>{{ props.row.reportBasicBO.phone }}</i>
+                      </span>
+                      <span class="info"
+                        ><i>填写时间：</i
+                        ><i>{{ props.row.reportBasicBO.uploadTime }}</i>
+                      </span>
+                    </div>
+                  </template>
+                </baseCol>
+                <baseCol prop="highNum" label="复查渗透测试报告名称">
+                  <template #button="props">
+                    <span
+                      @click="
+                        downloadBaseSeepFlaw(props.row.reviewReportBasicBO.path)
+                      "
+                      class="link"
+                    >
+                      {{ props.row.reviewReportBasicBO.name }}
+                    </span>
+                  </template>
+                </baseCol>
+                <baseCol prop="highNum" label="复查渗透测试报告信息">
+                  <template #button="props">
+                    <div v-if="props.row.reviewReportBasicBO.name">
+                      <span class="info"
+                        ><i>姓名：</i
+                        ><i>{{ props.row.reviewReportBasicBO.nickName }}</i>
+                      </span>
+                      <span class="info"
+                        ><i>单位名称：</i
+                        ><i>{{ props.row.reviewReportBasicBO.orgName }}</i>
+                      </span>
+                      <span class="info"
+                        ><i>联系方式：</i
+                        ><i>{{ props.row.reviewReportBasicBO.phone }}</i>
+                      </span>
+                      <span class="info"
+                        ><i>填写时间：</i
+                        ><i>{{ props.row.reviewReportBasicBO.uploadTime }}</i>
+                      </span>
+                    </div>
+                  </template>
+                </baseCol>
+                <baseCol label="操作">
+                  <template #button="props">
+                    <button
+                      v-if="props.row.editVisble"
+                      :disabled="stepData[step - 1].lock"
+                      @click="
+                        toNewPage(2, row.processId, 1, props.row.deviceId)
+                      "
+                    >
+                      编辑
+                    </button>
+                    <button
+                      v-if="props.row.reviewVisble"
+                      :disabled="stepData[step - 1].lock"
+                      @click="
+                        toNewPage(2, row.processId, 2, props.row.deviceId)
+                      "
+                    >
+                      复查
+                    </button>
+                  </template>
+                </baseCol>
+              </baseTable>
+            </div>
             <!-- 漏洞通过 -->
-            <h4>漏洞扫描报告</h4>
-            <button
-              v-if="allData.constructionBO.uploadVisible"
-              @click="uploadFile(allData.constructionBO, 5)"
-              class="major"
-              style="margin-right: 5px;"
-            >
-              上传
-            </button>
-            <button
-              v-if="allData.constructionBO.passVisible"
-              @click="passFlaw(allData[nowKey + 'BO'].processId)"
-              class="major"
-            >
-              通过
-            </button>
-            <baseTable :tableData="allData[nowKey + 'BO'].flawBOList">
-              <baseCol prop="fileName" label="漏洞文件名" />
-              <baseCol prop="fileSize" label="文件大小" />
-              <baseCol prop="highNum" label="高危数量" />
-              <baseCol prop="mediumNum" label="中危数量" />
-              <baseCol prop="lowNum" label="低危数量" />
-              <baseCol prop="uploadPersonName" label="上传人" />
-              <baseCol prop="uploadTime" label="上传时间" />
-              <baseCol label="操作">
-                <template #button="props">
-                  <button
-                    v-show="props.row.downloadVisible"
-                    @click="download(props.row.fileId, false, true)"
-                  >
-                    下载
-                  </button>
-                  <button
-                    v-show="props.row.reviewVisible"
-                    @click="review(props.row.fileId)"
-                    :disabled="stepData[step - 1].lock"
-                  >
-                    申请复评
-                  </button>
-                  <button
-                    v-show="props.row.deleteVisible"
-                    class="remove"
-                    @click="removeFile(props.row.fileId)"
-                  >
-                    删除
-                  </button>
-                </template>
-              </baseCol>
-            </baseTable>
+            <div class="report-wrap loophole">
+              <h5>漏洞扫描报告</h5>
+              <button
+                v-if="FlawTable.uploadVisible"
+                :disabled="stepData[step - 1].lock"
+                @click="toNewPage(3, row.processId)"
+                class="major"
+              >
+                上传
+              </button>
+              <button
+                v-if="FlawTable.attachmentVisible"
+                :disabled="stepData[step - 1].lock"
+                @click="toNewPage(4, row.processId)"
+                class="major"
+              >
+                上传整改说明附件
+              </button>
+              <button
+                v-if="FlawTable.passVisible"
+                :disabled="stepData[step - 1].lock"
+                @click="passFlaw(allData[nowKey + 'BO'].processId)"
+                class="major"
+              >
+                通过
+              </button>
+              <baseTable :tableData="FlawTable.flawList">
+                <baseCol prop="fileName" label="漏洞文件名">
+                  <template #button="props">
+                    <span
+                      @click="downloadBaseSeepFlaw(props.row.filePath)"
+                      class="link"
+                    >
+                      {{ props.row.fileName }}</span
+                    >
+                  </template>
+                </baseCol>
+                <baseCol prop="fileSize" label="文件大小" />
+                <baseCol prop="highNum" label="高危数量" />
+                <baseCol prop="mediumNum" label="中危数量" />
+                <baseCol prop="personName" label="上传人" />
+                <baseCol prop="orgName" label="单位名称" />
+                <baseCol prop="tel" label="联系方式" />
+                <baseCol prop="uploadTime" label="上传时间" />
+                <baseCol label="操作">
+                  <template #button="props">
+                    <button
+                      v-show="props.row.downloadVisible"
+                      @click="downloadFlaw(props.row.fileId)"
+                    >
+                      下载
+                    </button>
+                    <button
+                      v-show="props.row.reviewVisible"
+                      @click="review(props.row.fileId)"
+                      :disabled="stepData[step - 1].lock"
+                    >
+                      申请复评
+                    </button>
+                    <button
+                      v-show="props.row.deleteVisible"
+                      class="remove"
+                      @click="removeFlawFile(props.row.fileId)"
+                      :disabled="stepData[step - 1].lock"
+                    >
+                      删除
+                    </button>
+                  </template>
+                </baseCol>
+              </baseTable>
+              <baseTable :tableData="FlawTable.attachmentList">
+                <baseCol prop="fileName" label="漏洞整改说明附件">
+                  <template #button="props">
+                    <span
+                      @click="downloadBaseSeepFlaw(props.row.filePath)"
+                      class="link"
+                    >
+                      {{ props.row.fileName }}</span
+                    >
+                  </template>
+                </baseCol>
+                <baseCol prop="fileSize" label="文件大小" />
+                <baseCol prop="personName" label="上传人" />
+                <baseCol prop="orgName" label="单位名称" />
+                <baseCol prop="tel" label="联系方式" />
+                <baseCol prop="uploadTime" label="上传时间" />
+                <baseCol label="操作">
+                  <template #button="props">
+                    <button
+                      v-show="props.row.deleteVisible"
+                      class="remove"
+                      @click="removeFlawFile(props.row.fileId)"
+                      :disabled="stepData[step - 1].lock"
+                    >
+                      删除
+                    </button>
+                  </template>
+                </baseCol>
+              </baseTable>
+            </div>
           </div>
           <!-- 初验 -->
           <div v-else-if="item.key === 'acceptFirst'" class="acceptance">
@@ -357,6 +661,7 @@
               <button
                 v-show="props.row.uploadVisible"
                 @click="uploadFile(props.row, 1)"
+                :disabled="stepData[step - 1].lock"
               >
                 上传
               </button>
@@ -370,6 +675,7 @@
                 v-show="props.row.deleteVisible"
                 class="remove"
                 @click="removeFile(props.row.fileId)"
+                :disabled="stepData[step - 1].lock"
               >
                 删除文档
               </button>
@@ -407,6 +713,12 @@
         </button>
         <button v-show="allData[nowKey + 'BO'].archiveVisible" @click="finish">
           <svg-icon icon-class="sure" />归档
+        </button>
+        <button
+          v-if="step === 3 && allData.constructionBO.evaluatVisible"
+          @click="openDialogReckon"
+        >
+          安全评估
         </button>
       </div>
     </footer>
@@ -536,6 +848,384 @@
         </button>
       </baseForm>
     </baseDialog>
+    <!-- 建设流程中编辑的弹出框 -->
+    <baseDialog :visible.sync="buildDialog">
+      <template #title>编辑</template>
+      <baseForm ref="flowBuildForm" :form="buildForm" :rules="buildRules">
+        <baseFormItem label="序号">
+          <input type="text" v-model="buildForm.serialNumber" />
+        </baseFormItem>
+        <baseFormItem label="设备名称" prop="deviceName" required>
+          <input type="text" v-model="buildForm.deviceName" />
+        </baseFormItem>
+        <baseFormItem label="设备类型" prop="deviceSort" required>
+          <select v-model="buildForm.deviceSort">
+            <option value="服务器">服务器</option>
+            <option value="网络设备">网络设备</option>
+            <option value="安全设备">安全设备</option>
+            <option value="web应用系统">web应用系统</option>
+            <option value="其他">其他</option>
+          </select>
+        </baseFormItem>
+        <baseFormItem label="设备厂家/型号">
+          <input type="text" v-model="buildForm.deviceType" />
+        </baseFormItem>
+        <baseFormItem label="机房位置">
+          <input type="text" v-model="buildForm.position" />
+        </baseFormItem>
+        <baseFormItem label="机柜编号">
+          <input type="text" v-model="buildForm.cabinetNumber" />
+        </baseFormItem>
+        <baseFormItem
+          v-if="buildForm.deviceSort === '服务器'"
+          key="systemVersion1"
+          label="操作系统版本"
+          prop="systemVersion"
+          required
+        >
+          <input type="text" v-model="buildForm.systemVersion" />
+        </baseFormItem>
+        <baseFormItem v-else key="systemVersion2" label="操作系统版本">
+          <input type="text" v-model="buildForm.systemVersion" />
+        </baseFormItem>
+        <baseFormItem label="中间件版本">
+          <input type="text" v-model="buildForm.midVersion" />
+        </baseFormItem>
+        <baseFormItem label="数据库版本">
+          <input type="text" v-model="buildForm.dbVersion" />
+        </baseFormItem>
+        <baseFormItem label="私网IP地址">
+          <input type="text" v-model="buildForm.privateAddress" disabled />
+        </baseFormItem>
+        <baseFormItem label="DCN网地址">
+          <input type="text" v-model="buildForm.dcnAddress" disabled />
+        </baseFormItem>
+        <baseFormItem label="公网IP地址">
+          <input type="text" v-model="buildForm.publicAddress" disabled />
+        </baseFormItem>
+        <baseFormItem label="应用WEB URL地址">
+          <input type="text" v-model="buildForm.url" />
+        </baseFormItem>
+        <baseFormItem label="端口">
+          <input type="text" v-model="buildForm.port" />
+        </baseFormItem>
+        <baseFormItem label="备注">
+          <input type="text" v-model="buildForm.remark" />
+        </baseFormItem>
+        <button type="button" @click="buildSave">
+          <svg-icon icon-class="save" />保存
+        </button>
+      </baseForm>
+    </baseDialog>
+    <!-- 安全评估 -->
+    <baseDialog :visible.sync="dialogReckon" top="0" width="80%">
+      <template #title>工程项目概况</template>
+      <baseForm
+        ref="reckonForm"
+        :form="reckonForm"
+        :rules="reckonRules"
+        class="reckon-form"
+      >
+        <div class="piece">
+          <b>归属的网络单元名称</b>
+          <div
+            v-for="(item, index) in reckonForm.netItemBOList"
+            :key="index"
+            class="reckon-on-row"
+          >
+            <baseFormItem
+              label="网络单元名称"
+              :prop="'netItemBOList.' + index + '.systemName'"
+              :rule="[
+                {
+                  required: true,
+                  message: '请输入网络单元名称',
+                  trigger: 'blur',
+                },
+              ]"
+              required
+            >
+              <input
+                type="text"
+                v-model="reckonForm.netItemBOList[index].systemName"
+              />
+            </baseFormItem>
+            <baseFormItem
+              label="安全保护等级标准"
+              :prop="'netItemBOList.' + index + '.level'"
+              :rule="[
+                {
+                  required: true,
+                  message: '请选择安全保护等级标准',
+                  trigger: 'change',
+                },
+              ]"
+              required
+            >
+              <select v-model="reckonForm.netItemBOList[index].level">
+                <option
+                  v-for="(item, index) in enumList['安全保护等级标准']"
+                  :key="index"
+                  :value="item"
+                  >{{ item }}</option
+                >
+              </select>
+            </baseFormItem>
+            <svg-icon
+              v-if="reckonForm.netItemBOList.length > 1"
+              icon-class="close"
+              @click="removeList('netItemBOList', index)"
+            />
+          </div>
+          <button
+            type="button"
+            @click="addList('netItemBOList', { systemName: '', level: '' })"
+            style="margin-left: 12%;"
+          >
+            新增
+          </button>
+        </div>
+        <div class="piece pan">
+          <baseFormItem label="网络/系统类型" prop="type" required>
+            <select v-model="reckonForm.type">
+              <option
+                v-for="(item, index) in enumList['网络/系统类型']"
+                :key="index"
+                :value="item"
+                >{{ item }}</option
+              >
+            </select>
+          </baseFormItem>
+        </div>
+        <div class="piece pan">
+          <b>受评估项目建设情况</b>
+          <baseFormItem label="主体建设规模" prop="mainScale" required>
+            <textarea
+              cols="30"
+              rows="5"
+              v-model="reckonForm.mainScale"
+            ></textarea>
+          </baseFormItem>
+          <baseFormItem label="网络安全配套建设规模" prop="netScale" required>
+            <textarea
+              cols="30"
+              rows="5"
+              v-model="reckonForm.netScale"
+            ></textarea>
+          </baseFormItem>
+        </div>
+        <div class="piece reckon-on-row">
+          <b>工程建设部门</b>
+          <baseFormItem
+            label="部门名称"
+            :prop="'buildOrg.orgName'"
+            :rule="[
+              {
+                required: true,
+                message: '请输入部门名称',
+                trigger: 'blur',
+              },
+            ]"
+            required
+          >
+            <input type="text" v-model="reckonForm.buildOrg.orgName" />
+          </baseFormItem>
+          <baseFormItem
+            label="项目负责人"
+            :prop="'buildOrg.personName'"
+            :rule="[
+              {
+                required: true,
+                message: '请输入项目负责人',
+                trigger: 'blur',
+              },
+            ]"
+            required
+          >
+            <input type="text" v-model="reckonForm.buildOrg.personName" />
+          </baseFormItem>
+          <baseFormItem label="通信地址">
+            <input type="text" v-model="reckonForm.buildOrg.address" />
+          </baseFormItem>
+          <baseFormItem
+            label="联系电话"
+            :prop="'buildOrg.tel'"
+            :rule="[
+              {
+                required: true,
+                message: '请输入联系电话',
+                trigger: 'blur',
+              },
+            ]"
+            required
+          >
+            <input type="text" v-model="reckonForm.buildOrg.tel" />
+          </baseFormItem>
+          <baseFormItem label="电子邮件">
+            <input type="text" v-model="reckonForm.buildOrg.email" />
+          </baseFormItem>
+        </div>
+        <div class="piece reckon-on-row">
+          <b>工程服务单位</b>
+          <baseFormItem
+            label="部门名称"
+            :prop="'serviceOrg.orgName'"
+            :rule="[
+              {
+                required: true,
+                message: '请输入部门名称',
+                trigger: 'blur',
+              },
+            ]"
+            required
+          >
+            <input type="text" v-model="reckonForm.serviceOrg.orgName" />
+          </baseFormItem>
+          <baseFormItem
+            label="项目负责人"
+            :prop="'serviceOrg.personName'"
+            :rule="[
+              {
+                required: true,
+                message: '请输入项目负责人',
+                trigger: 'blur',
+              },
+            ]"
+            required
+          >
+            <input type="text" v-model="reckonForm.serviceOrg.personName" />
+          </baseFormItem>
+          <baseFormItem label="通信地址">
+            <input type="text" v-model="reckonForm.serviceOrg.address" />
+          </baseFormItem>
+          <baseFormItem
+            label="联系电话"
+            :prop="'serviceOrg.tel'"
+            :rule="[
+              {
+                required: true,
+                message: '请输入联系电话',
+                trigger: 'blur',
+              },
+            ]"
+            required
+          >
+            <input type="text" v-model="reckonForm.serviceOrg.tel" />
+          </baseFormItem>
+          <baseFormItem label="电子邮件">
+            <input type="text" v-model="reckonForm.serviceOrg.email" />
+          </baseFormItem>
+        </div>
+        <div class="piece">
+          <b>评估单位基本情况</b>
+          <div
+            v-for="(item, index) in reckonForm.personBOList"
+            :key="index"
+            class="reckon-on-row"
+          >
+            <baseFormItem
+              label="姓名"
+              :prop="'personBOList.' + index + '.name'"
+              :rule="[
+                {
+                  required: true,
+                  message: '请输入姓名',
+                  trigger: 'blur',
+                },
+              ]"
+              required
+            >
+              <input
+                type="text"
+                v-model="reckonForm.personBOList[index].name"
+              />
+            </baseFormItem>
+            <baseFormItem
+              label="职务(岗位)"
+              :prop="'personBOList.' + index + '.post'"
+              :rule="[
+                {
+                  required: true,
+                  message: '请输入职务(岗位)',
+                  trigger: 'blur',
+                },
+              ]"
+              required
+            >
+              <input
+                type="text"
+                v-model="reckonForm.personBOList[index].post"
+              />
+            </baseFormItem>
+            <svg-icon
+              v-if="reckonForm.personBOList.length > 1"
+              icon-class="close"
+              @click="removeList('personBOList', index)"
+            />
+          </div>
+          <button
+            type="button"
+            @click="addList('personBOList', { name: '', post: '' })"
+            style="margin-left: 12%;"
+          >
+            新增
+          </button>
+        </div>
+        <div class="piece reckon-on-row">
+          <b>系统日志安全检查</b>
+          <baseFormItem label="日志是否完善" prop="logState" required>
+            <label>
+              <input type="radio" v-model="reckonForm.logState" value="是" />
+              是
+            </label>
+            <label>
+              <input type="radio" v-model="reckonForm.logState" value="否" />
+              否
+            </label>
+          </baseFormItem>
+        </div>
+        <div class="piece reckon-on-row">
+          <b>账号安全检查情况</b>
+          <baseFormItem label="弱口令账号数" prop="psdNumber" required>
+            <input type="text" v-model="reckonForm.psdNumber" />
+          </baseFormItem>
+          <baseFormItem label="无主账号" prop="hostNumber" required>
+            <input type="text" v-model="reckonForm.hostNumber" />
+          </baseFormItem>
+        </div>
+        <div class="piece pan">
+          <baseFormItem
+            label="安全保障设施防护能力评估情况"
+            prop="securityState"
+            required
+          >
+            <textarea
+              cols="30"
+              rows="5"
+              v-model="reckonForm.securityState"
+            ></textarea>
+          </baseFormItem>
+        </div>
+        <baseFormItem
+          label="漏洞扫描情况"
+          prop="imgPath"
+          required
+          style="margin-left: -13.7%; width: 109.7%;"
+        >
+          <button type="button" @click="uploadFile(null, 7)">
+            点击上传
+          </button>
+          <span v-if="reckonForm.imgPath">
+            {{
+              reckonForm.imgPath.slice(reckonForm.imgPath.lastIndexOf('\\') + 1)
+            }}
+          </span>
+        </baseFormItem>
+        <button type="button" @click="saveReckon">
+          <svg-icon icon-class="save" />保存
+        </button>
+      </baseForm>
+    </baseDialog>
   </div>
 </template>
 
@@ -548,15 +1238,25 @@ import {
   saveConstruction,
   saveAcceptFirst,
   saveAcceptFinal,
-  getDeviceList,
   saveMaintain,
   saveConference,
   deleteConference,
   getConferenceById,
-  reviewByFileId,
-  passFlawByProcessId,
-  importDevice,
 } from '@/api/process'
+import {
+  getDeviceList,
+  saveDevice,
+  deleteDeviceById,
+  importDevice,
+} from '@/api/device'
+import {
+  getFlawReportList,
+  downloadFlaw,
+  reviewByFileId,
+  deleteFlaw,
+  passFlawByProcessId,
+} from '@/api/flawCommon'
+import { getBaseOnlineAndPenetration } from '@/api/reportCommon'
 import {
   uploadFile,
   deleteFile,
@@ -565,14 +1265,17 @@ import {
   confirm,
   downloadFile,
 } from '@/api/file'
-import {
-  // getOrgPersonPage,
-  getOrgPersonByIds,
-  getProcessOrgNodeTree,
-} from '@/api/systemOrgNode'
+import { download } from '@/api/sftp'
+import { getOrgPersonByIds, getProcessOrgNodeTree } from '@/api/systemOrgNode'
 import { getDictionaryValue } from '@/api/dictionary'
 import { downloadTemplate } from '@/api/template'
 import { getFirmManageAll } from '@/api/firmManage'
+import {
+  createReportEvaluation,
+  uploadImg,
+  getEnumList,
+  checkConstruction,
+} from '@/api/reportEvaluation'
 import { orgTree } from '@/assets/mixin/common'
 
 export default {
@@ -618,25 +1321,27 @@ export default {
       examineSummary: '', // 评审结论
       constructionData: {}, // 建设流程字典数据
       constructionTable: [], // 建设页面表格数据
-      constructionVendor: [], // 建设流程厂商列表
-      // constructionForm: {
-      //   deviceName: '',
-      //   deviceCode: '',
-      //   deviceAlias: '',
-      //   deviceType: '',
-      //   network: '',
-      //   machineName: '',
-      //   deviceModel: '',
-      //   detailAddress: '',
-      //   bureauStation: '',
-      //   area: '',
-      //   ipAddress: '',
-      //   localAttribute: '',
-      //   manufacturer: '',
-      //   enteringPersonnel: '',
-      //   enteringStartTime: '',
-      //   enteringEndTime: ''
-      // },
+      constructionForm: {
+        deviceName: '',
+        deviceCode: '',
+        deviceAlias: '',
+        deviceType: '',
+        network: '',
+        machineName: '',
+        deviceModel: '',
+        detailAddress: '',
+        bureauStation: '',
+        area: '',
+        ipAddress: '',
+        localAttribute: '',
+        manufacturer: '',
+        enteringPersonnel: '',
+        enteringStartTime: '',
+        enteringEndTime: '',
+      },
+      FlawTable: [], // 建设页面漏洞表格数据
+      baseLine: [], // 建设页面基线数据
+      seep: [], // 建设页面渗透数据
       meetingDialog: false,
       meetingDialogTitle: '',
       meetingForm: {
@@ -674,6 +1379,114 @@ export default {
       meetingDepartment: [],
       meetingStaffSearch: '',
       meetingStaff: [],
+      buildDialog: false,
+      buildForm: {
+        id: '',
+        processId: '',
+        serialNumber: '',
+        deviceName: '',
+        deviceSort: '',
+        deviceType: '',
+        position: '',
+        cabinetNumber: '',
+        systemVersion: '',
+        midVersion: '',
+        dbVersion: '',
+        privateAddress: '',
+        dcnAddress: '',
+        publicAddress: '',
+        url: '',
+        port: '',
+        remark: '',
+      },
+      buildRules: {
+        deviceName: [
+          { required: true, message: '请输入设备名称', trigger: 'blur' },
+        ],
+        deviceSort: [
+          { required: true, message: '请选择设备类型', trigger: 'change' },
+        ],
+        systemVersion: [
+          { required: true, message: '请输入操作系统版本', trigger: 'change' },
+        ],
+      },
+      dialogReckon: false,
+      enumList: {}, // 网络/系统类型，安全保护等级标准
+      reckonForm: {
+        netItemBOList: [{ systemName: '', level: '' }],
+        type: '',
+        mainScale: '',
+        netScale: '',
+        buildOrg: {
+          address: '',
+          email: '',
+          orgName: '',
+          personName: '',
+          tel: '',
+        },
+        serviceOrg: {
+          address: '',
+          email: '',
+          orgName: '',
+          personName: '',
+          tel: '',
+        },
+        personBOList: [{ name: '', post: '' }],
+        psdNumber: '',
+        hostNumber: '',
+        securityState: '',
+        imgPath: '',
+      },
+      reckonRules: {
+        type: [
+          { required: true, message: '请输入网络/系统类型', trigger: 'blur' },
+        ],
+        mainScale: [
+          { required: true, message: '请输入主体建设规模', trigger: 'blur' },
+        ],
+        netScale: [
+          {
+            required: true,
+            message: '请输入网络安全配套建设规模',
+            trigger: 'blur',
+          },
+        ],
+        logState: [
+          {
+            required: true,
+            message: '请选择日志是否完善',
+            trigger: 'change',
+          },
+        ],
+        psdNumber: [
+          {
+            required: true,
+            message: '请输入弱口令账号数',
+            trigger: 'blur',
+          },
+        ],
+        hostNumber: [
+          {
+            required: true,
+            message: '请输入无主账号',
+            trigger: 'blur',
+          },
+        ],
+        securityState: [
+          {
+            required: true,
+            message: '请输入安全保障设施防护能力评估情况',
+            trigger: 'blur',
+          },
+        ],
+        imgPath: [
+          {
+            required: true,
+            message: '请上传漏洞扫描情况',
+            trigger: 'change',
+          },
+        ],
+      },
     }
   },
   computed: {
@@ -689,11 +1502,22 @@ export default {
     },
   },
   created() {
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        this.initFlawRepor()
+        this.initBaseLineAndSeep(1)
+        this.initBaseLineAndSeep(2)
+      }
+    })
     this.init(true)
     getDictionaryValue().then((res) => {
       this.constructionData = res.data
     })
+    // 建设流程数据
     this.initConstruction()
+    this.initFlawRepor()
+    this.initBaseLineAndSeep(1)
+    this.initBaseLineAndSeep(2)
     // 获取所有厂商列表
     getFirmManageAll().then((res) => {
       this.constructionVendor = res.data
@@ -715,6 +1539,7 @@ export default {
               principal: this.allData.designBO.principal,
               tel: this.allData.designBO.tel,
               email: this.allData.designBO.email,
+              address: this.allData.designBO.address,
             },
             // constructionBO: {},
             acceptFirstBO: {
@@ -817,6 +1642,13 @@ export default {
         ).then((res) => {
           this.$message({ content: res.message, type: 'success' })
           this.init()
+          // 设计流程归档时刷新
+          if (this.step === 2) {
+            this.initConstruction()
+            this.initFlawRepor()
+            this.initBaseLineAndSeep(1)
+            this.initBaseLineAndSeep(2)
+          }
         })
       })
     },
@@ -842,6 +1674,9 @@ export default {
         case 6:
           this.rowInfo.type = '导入资产'
           break
+        case 7:
+          this.rowInfo.type = '安全评估'
+          break
       }
       this.$refs.flowFile.dispatchEvent(new MouseEvent('click'))
     },
@@ -853,6 +1688,18 @@ export default {
         importDevice(formData).then((res) => {
           this.$message({ content: res.message, type: 'success' })
           this.initConstruction()
+          this.initFlawRepor()
+          this.initBaseLineAndSeep(1)
+          this.initBaseLineAndSeep(2)
+        })
+      } else if (this.rowInfo.type === '安全评估') {
+        let formData = new FormData()
+        formData.append('file', e.target.files[0])
+        formData.append('processId', this.row.processId)
+        uploadImg(formData).then((res) => {
+          this.$message({ content: res.message, type: 'success' })
+          this.reckonForm.imgPath = res.data
+          this.$refs.reckonForm.validate()
         })
       } else {
         let formData = new FormData()
@@ -893,12 +1740,31 @@ export default {
     downloadTem() {
       downloadTemplate(2)
     },
+    // 下载漏洞文件
+    downloadFlaw(fileId) {
+      downloadFlaw(fileId).then(() => {
+        this.initFlawRepor()
+      })
+    },
+    // 基线、渗透、漏洞下载
+    downloadBaseSeepFlaw(path) {
+      download(path)
+    },
     // 删除文件
     removeFile(id) {
       this.$confirm('确认删除？', '提示').then(() => {
         deleteFile(id).then((res) => {
           this.$message({ content: res.message, type: 'success' })
           this.init()
+        })
+      })
+    },
+    // 删除漏洞文件
+    removeFlawFile(id) {
+      this.$confirm('确认删除？', '提示').then(() => {
+        deleteFlaw(id).then((res) => {
+          this.$message({ content: res.message, type: 'success' })
+          this.initFlawRepor()
         })
       })
     },
@@ -947,6 +1813,33 @@ export default {
         this.constructionTable = res.data
       })
     },
+    // 建设页面漏洞表格
+    initFlawRepor() {
+      getFlawReportList(this.row.processId).then((res) => {
+        this.FlawTable = res.data
+      })
+    },
+    // 建设页面基线表格
+    initBaseLineAndSeep(type) {
+      getBaseOnlineAndPenetration(this.row.processId, type).then((res) => {
+        if (type === 1) this.baseLine = res.data
+        else if (type === 2) this.seep = res.data
+      })
+    },
+    // 跳新页面
+    toNewPage(type, processId, status, deviceId, assetInfo) {
+      const newPage = this.$router.resolve({
+        path: '/reportform',
+        query: {
+          type: type,
+          processId: processId,
+          status: status,
+          deviceId: deviceId,
+          assetInfo: assetInfo,
+        },
+      })
+      window.open(newPage.href, '_blank')
+    },
     // 转维添加ip
     addMaintainIp() {
       this.allData.maintainBO.ipList.push('')
@@ -985,25 +1878,6 @@ export default {
       this.meetingStaff = []
       this.$refs.mettingForm.clearErr()
     },
-    // 会议记要staff
-    // changeMettingOrg(info) {
-    //   this.meetingForm.perIds = []
-    //   getOrgPersonPage({ orgId: info.id }).then(res => {
-    //     this.meetingStaff = res.data.list
-    //   })
-    // },
-    // changeMettingOrg(e, id) {
-    //   getOrgPersonPage({ orgId: id }).then(res => {
-    //     e.target.checked
-    //       ? (this.meetingStaff = this.meetingStaff.concat(res.data.list))
-    //       : (this.meetingStaff = this.meetingStaff.filter(
-    //           item => !res.data.list.some(item2 => item.id === item2.id)
-    //         ))
-    //     this.meetingForm.perIds = this.meetingForm.perIds.filter(item =>
-    //       this.meetingStaff.map(item2 => item2.id).includes(item)
-    //     )
-    //   })
-    // },
     saveMeeting() {
       if (!this.$refs.mettingForm.validate()) return
       this.meetingForm.processId = this.allData[this.nowKey + 'BO'].processId
@@ -1027,7 +1901,7 @@ export default {
     review(id) {
       reviewByFileId(id).then((res) => {
         this.$message({ content: res.message, type: 'success' })
-        this.init()
+        this.initFlawRepor()
       })
     },
     // 漏洞通过
@@ -1035,8 +1909,54 @@ export default {
       this.$confirm('确认通过？', '提示').then(() => {
         passFlawByProcessId(id).then((res) => {
           this.$message({ content: res.message, type: 'success' })
-          this.init()
+          this.initFlawRepor()
         })
+      })
+    },
+    openBuild(info) {
+      this.buildForm = JSON.parse(JSON.stringify(info))
+      this.buildDialog = true
+    },
+    buildSave() {
+      if (!this.$refs.flowBuildForm.validate()) return
+      saveDevice(this.buildForm).then((res) => {
+        this.$message({ content: res.message, type: 'success' })
+        this.initConstruction()
+        this.buildDialog = false
+      })
+    },
+    removeBuild(id) {
+      this.$confirm('确认删除？', '提示').then(() => {
+        deleteDeviceById(id).then((res) => {
+          this.$message({ content: res.message, type: 'success' })
+          this.initConstruction()
+          this.initFlawRepor()
+          this.initBaseLineAndSeep(1)
+          this.initBaseLineAndSeep(2)
+        })
+      })
+    },
+    openDialogReckon() {
+      checkConstruction(this.row.processId).then(() => {
+        getEnumList().then((res) => {
+          this.enumList = res.data
+          this.dialogReckon = true
+        })
+      })
+    },
+    addList(key, obj) {
+      this.reckonForm[key].push(obj)
+    },
+    removeList(key, index) {
+      this.reckonForm[key].splice(index, 1)
+    },
+    saveReckon() {
+      if (!this.$refs.reckonForm.validate()) return
+      this.reckonForm.processId = this.row.processId
+      createReportEvaluation(this.reckonForm).then((res) => {
+        this.$message({ content: res.message, type: 'success' })
+        this.dialogReckon = false
+        this.init()
       })
     },
   },
@@ -1182,11 +2102,60 @@ export default {
             }
           }
         }
+        div > .baseline {
+          background: #f7fcfd;
+          border: 1px solid #66cbd1;
+          h5 {
+            background: #66cbd1;
+          }
+        }
+        div > .infiltration {
+          background: #f3fdfa;
+          border: 1px solid #6ce1bf;
+          h5 {
+            background: #6ce1bf;
+          }
+        }
+        div > .loophole {
+          background: #f9feff;
+          border: 1px solid #5ce3f3;
+          h5 {
+            background: #5ce3f3;
+          }
+        }
+        div > .report-wrap {
+          margin: 20px 0;
+          h5 {
+            padding: 5px 10px;
+          }
+          button {
+            margin: 10px 5px 0 1%;
+          }
+          table {
+            width: 98%;
+            margin: 10px auto 15px auto;
+            .info {
+              margin: 2px 10px;
+              display: flex;
+              i {
+                font-style: normal;
+                width: 50%;
+                &:first-child {
+                  text-align: right;
+                }
+                &:last-child {
+                  text-align: left;
+                }
+              }
+            }
+          }
+        }
         div > .assets-wrap {
           width: 100%;
-          overflow-x: scroll;
+          max-height: 500px;
+          overflow: scroll;
           table {
-            width: 3000px;
+            width: 2000px;
           }
         }
         .purchase {
@@ -1369,6 +2338,36 @@ export default {
     span {
       margin-right: 10px;
       display: inline-block;
+    }
+  }
+  .reckon-form {
+    .piece {
+      border-bottom: 1px solid #cbcbcb;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+    }
+    .pan {
+      .form-gound {
+        width: 109.7%;
+        margin-left: -13.7%;
+      }
+    }
+    b {
+      width: 100%;
+    }
+    .reckon-on-row {
+      display: flex;
+      flex-flow: wrap;
+      .form-gound {
+        width: 48%;
+      }
+      svg {
+        border: 1px solid #ff4949;
+        border-radius: 50%;
+        color: #ff4949;
+        margin-left: 5px;
+        margin-top: 13px;
+      }
     }
   }
 }
