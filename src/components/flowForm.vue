@@ -291,7 +291,6 @@
                   <template #button="props">
                     <button
                       v-if="props.row.editVisble"
-                      :disabled="stepData[step - 1].lock"
                       @click="
                         toNewPage(
                           1,
@@ -406,7 +405,6 @@
                   <template #button="props">
                     <button
                       v-if="props.row.editVisble"
-                      :disabled="stepData[step - 1].lock"
                       @click="
                         toNewPage(2, row.processId, 1, props.row.deviceId)
                       "
