@@ -212,7 +212,6 @@
               <button
                 v-if="baseLine.startVisble"
                 @click="toNewPage(1, row.processId, 1)"
-                :disabled="stepData[step - 1].lock"
                 class="major"
                 style="margin-right: 5px;"
               >
@@ -307,7 +306,6 @@
                     </button>
                     <button
                       v-if="props.row.reviewVisble"
-                      :disabled="stepData[step - 1].lock"
                       @click="
                         toNewPage(
                           1,
@@ -330,7 +328,6 @@
               <button
                 v-if="seep.startVisble"
                 @click="toNewPage(2, row.processId, 1)"
-                :disabled="stepData[step - 1].lock"
                 class="major"
                 style="margin-right: 5px;"
               >
@@ -418,7 +415,6 @@
                     </button>
                     <button
                       v-if="props.row.reviewVisble"
-                      :disabled="stepData[step - 1].lock"
                       @click="
                         toNewPage(2, row.processId, 2, props.row.deviceId)
                       "
@@ -434,7 +430,6 @@
               <h5>漏洞扫描报告</h5>
               <button
                 v-if="FlawTable.uploadVisible"
-                :disabled="stepData[step - 1].lock"
                 @click="toNewPage(3, row.processId)"
                 class="major"
               >
@@ -442,7 +437,6 @@
               </button>
               <button
                 v-if="FlawTable.attachmentVisible"
-                :disabled="stepData[step - 1].lock"
                 @click="toNewPage(4, row.processId)"
                 class="major"
               >
@@ -450,7 +444,6 @@
               </button>
               <button
                 v-if="FlawTable.passVisible"
-                :disabled="stepData[step - 1].lock"
                 @click="passFlaw(allData[nowKey + 'BO'].processId)"
                 class="major"
               >
@@ -485,7 +478,6 @@
                     <button
                       v-show="props.row.reviewVisible"
                       @click="review(props.row.fileId)"
-                      :disabled="stepData[step - 1].lock"
                     >
                       申请复评
                     </button>
@@ -493,7 +485,6 @@
                       v-show="props.row.deleteVisible"
                       class="remove"
                       @click="removeFlawFile(props.row.fileId)"
-                      :disabled="stepData[step - 1].lock"
                     >
                       删除
                     </button>
@@ -522,7 +513,6 @@
                       v-show="props.row.deleteVisible"
                       class="remove"
                       @click="removeFlawFile(props.row.fileId)"
-                      :disabled="stepData[step - 1].lock"
                     >
                       删除
                     </button>

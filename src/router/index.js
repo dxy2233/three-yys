@@ -70,12 +70,6 @@ export const asyncRouterMap = {
     name: 'Assets',
     meta: { title: '项目资产管控', icon: 'means' },
   },
-  xgbg: {
-    path: 'report',
-    component: () => import(/* webpackChunkName: 'report' */ '../views/report'),
-    name: 'Report',
-    meta: { title: '相关报告', icon: 'report' },
-  },
   1: {
     path: '/count',
     component: Layout,
