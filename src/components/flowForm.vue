@@ -646,7 +646,6 @@
               <button
                 v-show="props.row.uploadVisible"
                 @click="uploadFile(props.row, 1)"
-                :disabled="stepData[step - 1].lock"
               >
                 上传
               </button>
@@ -660,7 +659,6 @@
                 v-show="props.row.deleteVisible"
                 class="remove"
                 @click="removeFile(props.row.fileId)"
-                :disabled="stepData[step - 1].lock"
               >
                 删除文档
               </button>

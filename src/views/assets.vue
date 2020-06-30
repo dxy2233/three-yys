@@ -67,6 +67,7 @@
           <baseCol prop="serialNumber" label="序号" />
           <baseCol prop="importName" label="导入人" />
           <baseCol prop="deviceName" label="设备名称" />
+          <baseCol prop="deviceSort" label="设备类型" />
           <baseCol prop="deviceType" label="设备厂家/型号" />
           <baseCol prop="position" label="机房位置" />
           <baseCol prop="cabinetNumber" label="机柜编号" />
