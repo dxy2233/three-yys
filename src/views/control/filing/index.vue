@@ -43,7 +43,7 @@
     <!-- 上传文件input -->
     <input type="file" ref="filingFile" @change="upload($event)" />
 
-    <baseTable :tableData="tableData.list">
+    <baseTable :tableData="tableData.list" @rowClick="clickTable">
       <baseCol prop="projectCode" label="项目编号" />
       <baseCol prop="projectName" label="项目名称" />
       <baseCol prop="projectBudget" label="项目预算(万)" />
@@ -59,14 +59,14 @@
         <template #button="props">
           <button
             v-if="props.row.editVisble"
-            @click="openDialog('编辑备案', props.row)"
+            @click.stop="openDialog('编辑备案', props.row)"
           >
             编辑
           </button>
           <button
             v-if="props.row.deleteVisble"
             class="remove"
-            @click="remove(props.row.id)"
+            @click.stop="remove(props.row.id)"
           >
             删除
           </button>
@@ -120,6 +120,7 @@
             v-model="form.dutyDepartment"
             :data="dutyDepartmentData"
             placeholder="请输入责任部门"
+            :disabled="dialogTitle === '备案详情'"
           />
         </baseFormItem>
         <baseFormItem label="资金来源" prop="fundsSource" required>
@@ -302,6 +303,9 @@ export default {
         this.tableData = res.data
       })
     },
+    clickTable(item) {
+      this.openDialog('备案详情', item)
+    },
     openDialog(type, info) {
       this.dialogTitle = type
       // 获取服务商列表
@@ -313,11 +317,23 @@ export default {
         this.dutyDepartmentData = res.data
       })
       if (info) this.form = JSON.parse(JSON.stringify(info))
+      if (type === '备案详情') {
+        this.$nextTick(() => {
+          this.$refs.filingForm.$el
+            .querySelectorAll('input, select')
+            .forEach((item) => (item.disabled = true))
+        })
+      }
       this.dialog = true
     },
     closedDialog() {
       for (const i in this.form) this.form[i] = ''
       this.$refs.filingForm.clearErr()
+      this.$nextTick(() => {
+        this.$refs.filingForm.$el
+          .querySelectorAll('input, select')
+          .forEach((item) => (item.disabled = false))
+      })
     },
     remove(id) {
       this.$confirm('确认删除？', '提示').then(() => {
@@ -356,4 +372,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+table {
+  cursor: pointer;
+}
+</style>

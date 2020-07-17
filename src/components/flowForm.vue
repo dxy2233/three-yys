@@ -74,6 +74,38 @@
                   <option value="2">资本</option>
                 </select>
               </div>
+              <div class="item">
+                <label><em>*</em>责任单位</label>
+                <input
+                  type="text"
+                  v-model="allData.initiateBO.resOrg.org"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>责任人</label>
+                <input
+                  type="text"
+                  v-model="allData.initiateBO.resOrg.principal"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>联系方式</label>
+                <input
+                  type="text"
+                  v-model="allData.initiateBO.resOrg.tel"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>邮箱</label>
+                <input
+                  type="text"
+                  v-model="allData.initiateBO.resOrg.email"
+                  :disabled="item.lock"
+                />
+              </div>
             </div>
           </div>
 
@@ -152,6 +184,73 @@
                     >{{ item2.name }}</option
                   >
                 </select>
+              </div>
+              <div class="item"></div>
+              <div class="item">
+                <label><em>*</em>建设单位</label>
+                <input
+                  type="text"
+                  v-model="allData.constructionBO.buildOrg.org"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>责任人</label>
+                <input
+                  type="text"
+                  v-model="allData.constructionBO.buildOrg.principal"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>联系方式</label>
+                <input
+                  type="text"
+                  v-model="allData.constructionBO.buildOrg.tel"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>邮箱</label>
+                <input
+                  type="text"
+                  v-model="allData.constructionBO.buildOrg.email"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item"></div>
+              <div class="item"></div>
+              <div class="item">
+                <label><em>*</em>承建单位</label>
+                <input
+                  type="text"
+                  v-model="allData.constructionBO.contractOrg.org"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>责任人</label>
+                <input
+                  type="text"
+                  v-model="allData.constructionBO.contractOrg.principal"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>联系方式</label>
+                <input
+                  type="text"
+                  v-model="allData.constructionBO.contractOrg.tel"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>邮箱</label>
+                <input
+                  type="text"
+                  v-model="allData.constructionBO.contractOrg.email"
+                  :disabled="item.lock"
+                />
               </div>
             </div>
 
@@ -520,49 +619,737 @@
             </div>
           </div>
           <!-- 初验 -->
-          <div v-else-if="item.key === 'acceptFirst'" class="acceptance">
-            <div>
-              <label><em>*</em>验收结论</label>
-              <textarea
-                v-model="allData.acceptFirstBO.summary"
-                rows="10"
-                :disabled="item.lock"
-              ></textarea>
+          <div v-else-if="item.key === 'acceptFirst'">
+            <div class="items">
+              <div class="item" style="width: 85%; margin-bottom: 5px;">
+                <label><em>*</em>验收结论</label>
+                <textarea
+                  v-model="allData.acceptFirstBO.summary"
+                  rows="10"
+                  :disabled="item.lock"
+                ></textarea>
+              </div>
+              <div class="item">
+                <label><em>*</em>建设单位</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFirstBO.buildOrg.org"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>责任人</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFirstBO.buildOrg.principal"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>联系方式</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFirstBO.buildOrg.tel"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>邮箱</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFirstBO.buildOrg.email"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item"></div>
+              <div class="item"></div>
+              <div class="item">
+                <label><em>*</em>承建单位</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFirstBO.contractOrg.org"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>责任人</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFirstBO.contractOrg.principal"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>联系方式</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFirstBO.contractOrg.tel"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>邮箱</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFirstBO.contractOrg.email"
+                  :disabled="item.lock"
+                />
+              </div>
             </div>
           </div>
           <!-- 终验 -->
-          <div v-else-if="item.key === 'acceptFinal'" class="acceptance">
-            <div>
-              <label><em>*</em>验收结论</label>
-              <textarea
-                v-model="allData.acceptFinalBO.summary"
-                rows="10"
-                :disabled="item.lock"
-              ></textarea>
+          <div v-else-if="item.key === 'acceptFinal'">
+            <div class="items">
+              <div class="item" style="width: 85%; margin-bottom: 5px;">
+                <label><em>*</em>验收结论</label>
+                <textarea
+                  v-model="allData.acceptFinalBO.summary"
+                  rows="10"
+                  :disabled="item.lock"
+                ></textarea>
+              </div>
+              <div class="item">
+                <label><em>*</em>建设单位</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFinalBO.buildOrg.org"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>责任人</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFinalBO.buildOrg.principal"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>联系方式</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFinalBO.buildOrg.tel"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>邮箱</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFinalBO.buildOrg.email"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item"></div>
+              <div class="item"></div>
+              <div class="item">
+                <label><em>*</em>承建单位</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFinalBO.contractOrg.org"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>责任人</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFinalBO.contractOrg.principal"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>联系方式</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFinalBO.contractOrg.tel"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>邮箱</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFinalBO.contractOrg.email"
+                  :disabled="item.lock"
+                />
+              </div>
             </div>
           </div>
           <!-- 转维 -->
-          <div v-else-if="item.key === 'maintain'" class="transformation">
+          <div v-else-if="item.key === 'maintain'">
+            <div class="items">
+              <div class="item">
+                <label><em>*</em>维护单位</label>
+                <input
+                  type="text"
+                  v-model="allData.maintainBO.maintainOrg.org"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>责任人</label>
+                <input
+                  type="text"
+                  v-model="allData.maintainBO.maintainOrg.principal"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>联系方式</label>
+                <input
+                  type="text"
+                  v-model="allData.maintainBO.maintainOrg.tel"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>邮箱</label>
+                <input
+                  type="text"
+                  v-model="allData.maintainBO.maintainOrg.email"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item"></div>
+              <div class="item"></div>
+              <div class="item">
+                <label><em>*</em>第三方维护商</label>
+                <input
+                  type="text"
+                  v-model="allData.maintainBO.maintainTrader.org"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>责任人</label>
+                <input
+                  type="text"
+                  v-model="allData.maintainBO.maintainTrader.principal"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>联系方式</label>
+                <input
+                  type="text"
+                  v-model="allData.maintainBO.maintainTrader.tel"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item">
+                <label><em>*</em>邮箱</label>
+                <input
+                  type="text"
+                  v-model="allData.maintainBO.maintainTrader.email"
+                  :disabled="item.lock"
+                />
+              </div>
+            </div>
             <h4>IP地址</h4>
             {{ allData.maintainBO.ipList.join('，') }}
-            <!-- <div
-              v-for="(item2, index2) in allData.maintainBO.ipList"
-              :key="index2"
-            >
-              <input
-                type="text"
-                v-model="allData.maintainBO.ipList[index2]"
-                :disabled="item.lock"
-              />
-              <button
-                @click="allData.maintainBO.ipList.splice(index2, 1)"
-                :disabled="item.lock"
-                class="remove"
-              >
-                删除
-              </button>
-            </div> -->
-            <!-- <button @click="addMaintainIp" :disabled="item.lock">添加</button> -->
+            <div class="report-wrap">
+              <h5></h5>
+              <baseForm class="big-label">
+                <baseFormItem label="平台名称" required>
+                  <input
+                    type="text"
+                    v-model="allData.maintainBO.table.platformName"
+                    :disabled="item.lock"
+                  />
+                </baseFormItem>
+                <baseFormItem label="平台主管单位名称" required>
+                  <input
+                    type="text"
+                    v-model="allData.maintainBO.table.supervisorOrgName"
+                    :disabled="item.lock"
+                  />
+                </baseFormItem>
+                <baseFormItem label="运行维护单位" required>
+                  <input
+                    type="text"
+                    v-model="allData.maintainBO.table.maintainOrgName"
+                    :disabled="item.lock"
+                  />
+                </baseFormItem>
+                <baseFormItem label="用户重要信息类型" required>
+                  <label>
+                    <input
+                      type="checkbox"
+                      v-model="allData.maintainBO.table.infoTypeList"
+                      :value="0"
+                      :disabled="item.lock"
+                    />
+                    身份信息
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      v-model="allData.maintainBO.table.infoTypeList"
+                      :value="1"
+                      :disabled="item.lock"
+                    />
+                    业务/合作信息
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      v-model="allData.maintainBO.table.infoTypeList"
+                      :value="2"
+                      :disabled="item.lock"
+                    />
+                    通信信息
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      v-model="allData.maintainBO.table.infoTypeList"
+                      :value="3"
+                      :disabled="item.lock"
+                    />
+                    用户账号密码信息
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      v-model="allData.maintainBO.table.infoTypeList"
+                      :value="4"
+                      :disabled="item.lock"
+                    />
+                    其它
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      v-model="allData.maintainBO.table.infoTypeList"
+                      :value="5"
+                      :disabled="item.lock"
+                    />
+                    无
+                  </label>
+                </baseFormItem>
+                <baseFormItem label="用户个人信息最高等级" required>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.infoLevel"
+                      :value="1"
+                      :disabled="item.lock"
+                    />
+                    1
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.infoLevel"
+                      :value="2"
+                      :disabled="item.lock"
+                    />
+                    2
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.infoLevel"
+                      :value="3"
+                      :disabled="item.lock"
+                    />
+                    3
+                  </label>
+                </baseFormItem>
+                <baseFormItem label="平台影响范围" required>
+                  <baseCascader
+                    v-model="allData.maintainBO.table.cityId"
+                    :data="cityData"
+                    :childrenName="'cityBOList'"
+                    label="name"
+                    :disabled="item.lock"
+                  />
+                </baseFormItem>
+                <baseFormItem label="平台账号实名制管理" required>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.realName"
+                      :value="2"
+                      :disabled="item.lock"
+                    />
+                    是
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.realName"
+                      :value="1"
+                      :disabled="item.lock"
+                    />
+                    否
+                  </label>
+                </baseFormItem>
+                <baseFormItem label="平台登陆日志保存时间(月)" required>
+                  <input
+                    type="text"
+                    v-model="allData.maintainBO.table.loginRecord"
+                    :disabled="item.lock"
+                  />
+                </baseFormItem>
+                <baseFormItem label="平台操作日志保存时间(月)" required>
+                  <input
+                    type="text"
+                    v-model="allData.maintainBO.table.operateRecord"
+                    :disabled="item.lock"
+                  />
+                </baseFormItem>
+                <baseFormItem label="平台默认口令复杂度" required>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.complexity"
+                      :value="1"
+                      :disabled="item.lock"
+                    />
+                    1级
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.complexity"
+                      :value="2"
+                      :disabled="item.lock"
+                    />
+                    2级
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.complexity"
+                      :value="3"
+                      :disabled="item.lock"
+                    />
+                    3级
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.complexity"
+                      :value="4"
+                      :disabled="item.lock"
+                    />
+                    4级
+                  </label>
+                </baseFormItem>
+                <baseFormItem label="平台默认口令有效期(天)" required>
+                  <input
+                    type="text"
+                    v-model="allData.maintainBO.table.expiration"
+                    :disabled="item.lock"
+                  />
+                </baseFormItem>
+                <baseFormItem label="定期审计账号/操作周期(月)" required>
+                  <input
+                    type="text"
+                    v-model="allData.maintainBO.table.auditCycle"
+                    :disabled="item.lock"
+                  />
+                </baseFormItem>
+                <baseFormItem
+                  label="平台是否开设了第三方账号（包括把内部账号授予第三方使用）"
+                  required
+                >
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.thirdAccount"
+                      :value="2"
+                      :disabled="item.lock"
+                    />
+                    是
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.thirdAccount"
+                      :value="1"
+                      :disabled="item.lock"
+                    />
+                    否
+                  </label>
+                </baseFormItem>
+                <baseFormItem
+                  label="有无决定引入第三方的程序和决策审核流程"
+                  required
+                >
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.useThird"
+                      :value="2"
+                      :disabled="item.lock"
+                    />
+                    是
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.useThird"
+                      :value="1"
+                      :disabled="item.lock"
+                    />
+                    否
+                  </label>
+                </baseFormItem>
+                <baseFormItem label="第三方的程序和决策审核流程决策人" required>
+                  <input
+                    type="text"
+                    v-model="allData.maintainBO.table.policyPersonName"
+                    :disabled="item.lock"
+                  />
+                </baseFormItem>
+                <baseFormItem
+                  label="有分配、授权第三方人员使用系统/平台账号相关审批管理规定"
+                  required
+                >
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.regulation"
+                      :value="2"
+                      :disabled="item.lock"
+                    />
+                    是
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.regulation"
+                      :value="1"
+                      :disabled="item.lock"
+                    />
+                    否
+                  </label>
+                </baseFormItem>
+                <baseFormItem
+                  label="第三方账号是否具有批量信息导出权限"
+                  required
+                >
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.export"
+                      :value="2"
+                      :disabled="item.lock"
+                    />
+                    是
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.export"
+                      :value="1"
+                      :disabled="item.lock"
+                    />
+                    否
+                  </label>
+                </baseFormItem>
+                <baseFormItem
+                  label="第三方账号是否有系统/平台关闭、重启权限"
+                  required
+                >
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.reboot"
+                      :value="2"
+                      :disabled="item.lock"
+                    />
+                    是
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.reboot"
+                      :value="1"
+                      :disabled="item.lock"
+                    />
+                    否
+                  </label>
+                </baseFormItem>
+                <baseFormItem
+                  label="第三方账号权限是否可查看用户个人信息及重要信息"
+                  required
+                >
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.importantInfo"
+                      :value="2"
+                      :disabled="item.lock"
+                    />
+                    是
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.importantInfo"
+                      :value="1"
+                      :disabled="item.lock"
+                    />
+                    否
+                  </label>
+                </baseFormItem>
+                <baseFormItem label="第三方单位名称" required>
+                  <input
+                    type="text"
+                    v-model="allData.maintainBO.table.thirdOrgName"
+                    :disabled="item.lock"
+                  />
+                </baseFormItem>
+                <baseFormItem label="第三方项目类型" required>
+                  <select
+                    v-model="allData.maintainBO.table.projectType"
+                    :disabled="item.lock"
+                  >
+                    <option :value="1">系统/平台集成</option>
+                    <option :value="2">外包</option>
+                    <option :value="3">代维</option>
+                    <option :value="4">维保</option>
+                    <option :value="5">业务合作</option>
+                    <option :value="6">技术支撑</option>
+                    <option :value="7">赠送</option>
+                  </select>
+                </baseFormItem>
+                <baseFormItem label="第三方项目来源方式" required>
+                  <select
+                    v-model="allData.maintainBO.table.sourceType"
+                    :disabled="item.lock"
+                  >
+                    <option :value="0">其它</option>
+                    <option :value="1">招标</option>
+                    <option :value="2">比选</option>
+                    <option :value="3">定向谈判</option>
+                    <option :value="4">免费服务</option>
+                  </select>
+                </baseFormItem>
+                <baseFormItem label="第三方人员数量" required>
+                  <input
+                    type="text"
+                    v-model="allData.maintainBO.table.thirdNumber"
+                    :disabled="item.lock"
+                  />
+                </baseFormItem>
+                <baseFormItem label="第三方人员参与模式" required>
+                  <label>
+                    <input
+                      type="checkbox"
+                      v-model="allData.maintainBO.table.mode"
+                      :value="1"
+                      :disabled="item.lock"
+                    />
+                    现场
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      v-model="allData.maintainBO.table.mode"
+                      :value="2"
+                      :disabled="item.lock"
+                    />
+                    远程
+                  </label>
+                </baseFormItem>
+                <baseFormItem label="第三方合同中明确网信安职责" required>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.respon"
+                      :value="2"
+                      :disabled="item.lock"
+                    />
+                    是
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.respon"
+                      :value="1"
+                      :disabled="item.lock"
+                    />
+                    否
+                  </label>
+                </baseFormItem>
+                <baseFormItem label="是否明确第三方违约责任/罚则" required>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.penalty"
+                      :value="2"
+                      :disabled="item.lock"
+                    />
+                    是
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.penalty"
+                      :value="1"
+                      :disabled="item.lock"
+                    />
+                    否
+                  </label>
+                </baseFormItem>
+                <baseFormItem label="第三方人员全部签订安全及保密协议" required>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.protocol"
+                      :value="2"
+                      :disabled="item.lock"
+                    />
+                    是
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      v-model="allData.maintainBO.table.protocol"
+                      :value="1"
+                      :disabled="item.lock"
+                    />
+                    否
+                  </label>
+                </baseFormItem>
+                <baseFormItem
+                  label="定期检查第三方网络安全责任落实情况周期(月)"
+                  required
+                >
+                  <input
+                    type="text"
+                    v-model="allData.maintainBO.table.checkCycle"
+                    :disabled="item.lock"
+                  />
+                </baseFormItem>
+                <baseFormItem label="第三方网信安措施效果评估周期(月)" required>
+                  <input
+                    type="text"
+                    v-model="allData.maintainBO.table.evaluateCycle"
+                    :disabled="item.lock"
+                  />
+                </baseFormItem>
+                <baseFormItem label="第三方网信安措施效果评估结果 " required>
+                  <textarea
+                    rows="5"
+                    v-model="allData.maintainBO.table.evaluateResult"
+                    :disabled="item.lock"
+                  />
+                </baseFormItem>
+                <baseFormItem label="备注" required>
+                  <textarea
+                    rows="5"
+                    v-model="allData.maintainBO.table.remark"
+                    :disabled="item.lock"
+                  />
+                </baseFormItem>
+              </baseForm>
+            </div>
           </div>
         </div>
 
@@ -782,40 +1569,8 @@
             />
             {{ item.orgName }}
           </label>
-          <!-- <label v-for="(item, index) in meetingDepartment" :key="index">
-            <input
-              type="checkbox"
-              v-model="meetingForm.orgId"
-              :id="item.id"
-              :value="item.id"
-              @change="changeMettingOrg($event, item.id)"
-            />
-            {{ item.orgName }}
-          </label> -->
         </baseFormItem>
-        <!-- <baseFormItem label="参会人员" prop="perIds" required>
-          <input type="text" v-model="meetingStaffSearch" />
-          <div class="metting-staff-checkbox">
-            <label
-              v-show="item.name.includes(meetingStaffSearch)"
-              v-for="(item, index) in meetingStaff"
-              :key="index"
-            >
-              <input
-                type="checkbox"
-                v-model="meetingForm.perIds"
-                :id="item.id"
-                :value="item.id"
-              />
-              {{ item.name }}
-            </label>
-          </div>
-          <div class="metting-staff-checked">
-            <span v-for="(item, index) in meetingStaffChecked" :key="index">{{
-              item.name
-            }}</span>
-          </div>
-        </baseFormItem> -->
+
         <baseFormItem label="参会人员" prop="perString" required>
           <textarea rows="5" v-model="meetingForm.perString"></textarea>
           <div style="color: #ff4949;">*以顿号(、)进行分隔</div>
@@ -1225,6 +1980,7 @@ import {
   deleteConference,
   getConferenceById,
   saveConstruction,
+  getCity,
 } from '@/api/process'
 import {
   getDeviceList,
@@ -1298,30 +2054,13 @@ export default {
       ],
       allData: {},
       rowInfo: {}, // table当前row的数据
+      cityData: {}, // 转维的城市数据
       examineDialog: false,
       examineTabelData: [],
       examineFileDialog: false,
       examineSummary: '', // 评审结论
       constructionData: {}, // 建设流程字典数据
       constructionTable: [], // 建设页面表格数据
-      constructionForm: {
-        deviceName: '',
-        deviceCode: '',
-        deviceAlias: '',
-        deviceType: '',
-        network: '',
-        machineName: '',
-        deviceModel: '',
-        detailAddress: '',
-        bureauStation: '',
-        area: '',
-        ipAddress: '',
-        localAttribute: '',
-        manufacturer: '',
-        enteringPersonnel: '',
-        enteringStartTime: '',
-        enteringEndTime: '',
-      },
       FlawTable: [], // 建设页面漏洞表格数据
       baseLine: [], // 建设页面基线数据
       seep: [], // 建设页面渗透数据
@@ -1498,6 +2237,10 @@ export default {
     // 获取所有厂商列表
     getFirmManageAll().then((res) => {
       this.constructionVendor = res.data
+    })
+    // 获取转维节点影响范围的城市信息
+    getCity().then((res) => {
+      this.cityData = res.data
     })
   },
   beforeDestroy() {
@@ -2059,7 +2802,6 @@ export default {
               text-align: right;
               width: 30%;
               margin-right: 3%;
-              white-space: nowrap;
               em {
                 color: #ff4949;
                 margin-right: 5px;
@@ -2136,6 +2878,11 @@ export default {
               }
             }
           }
+          .big-label {
+            /deep/ .form-item > label {
+              flex: 3;
+            }
+          }
         }
         div > .assets-wrap {
           width: 100%;
@@ -2187,50 +2934,6 @@ export default {
               background-color: #0196e0;
               color: #fff;
             }
-          }
-        }
-        .transformation {
-          div {
-            margin-bottom: 5px;
-            input {
-              position: relative;
-              top: -2px;
-              width: 30%;
-            }
-            button.remove {
-              height: 30px;
-              margin-left: 5px;
-              color: #ff4949;
-              border: 1px solid #ff4949;
-              &:hover {
-                background: #ff4949;
-                color: #fff;
-              }
-            }
-          }
-          > button {
-            border: 1px solid #0196e0;
-            color: #0196e0;
-            &:hover {
-              background-color: #0196e0;
-              color: #fff;
-            }
-          }
-        }
-        .acceptance > div {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 20px 0;
-          label > em {
-            margin-right: 5px;
-            color: #ff4949;
-          }
-          textarea {
-            border-radius: 3px;
-            margin-left: 10px;
-            width: 60%;
-            border: 1px solid #ccc;
           }
         }
       }

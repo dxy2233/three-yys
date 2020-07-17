@@ -129,7 +129,7 @@ export const asyncRouterMap = {
         /* webpackChunkName: 'servicer' */ '../views/control/servicer/index'
       ),
     name: 'Servicer',
-    meta: { title: '服务商录入', icon: 'service' },
+    meta: { title: '三同步服务商管理', icon: 'service' },
   },
   xmcsgl: {
     path: 'vendor',

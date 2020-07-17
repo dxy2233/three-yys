@@ -23,6 +23,16 @@ export function deleteConference(id) {
 }
 
 /**
+ * @description 获取城市信息
+ */
+export function getCity() {
+  return request({
+    url: '/process/getCity',
+    method: 'get',
+  })
+}
+
+/**
  * @description 根据ID获取会议纪要详细信息
  */
 export function getConferenceById(id) {
@@ -79,6 +89,8 @@ export function pauseProcess(id, pause, reason) {
  * @param schedule 项目进度名称
  * @param summary 验收结论
  * @param fileBOList 相关资料
+ * @param buildOrg 建设单位信息
+ * @param contractOrg 承建单位信息
  * @param conferenceBOList 会议纪要
  * @param saveVisible 保存按钮是否可见
  * @param editVisible 编辑按钮是否可见
@@ -100,6 +112,8 @@ export function saveAcceptFinal(data) {
  * @param schedule 项目进度名称
  * @param summary 验收结论
  * @param fileBOList 相关资料
+ * @param buildOrg 建设单位信息
+ * @param contractOrg 承建单位信息
  * @param conferenceBOList 会议纪要
  * @param saveVisible 保存按钮是否可见
  * @param editVisible 编辑按钮是否可见
@@ -143,6 +157,8 @@ export function saveConference(data) {
  * @param processId 流程ID
  * @param schedule 项目进度名称
  * @param fileBOList 相关资料
+ * @param buildOrg 建设单位信息
+ * @param contractOrg 承建单位信息
  * @param conferenceBOList 会议纪要
  * @param saveVisible 保存按钮是否可见
  * @param editVisible 编辑按钮是否可见
@@ -193,6 +209,7 @@ export function saveDesign(data) {
  * @param fileBOList 相关资料
  * @param org 需求单位
  * @param type 支出方式：1 成本；2 资本
+ * @param resOrg 责任单位信息
  * @param conferenceBOList 会议纪要
  * @param saveVisible 保存按钮是否可见
  * @param editVisible 编辑按钮是否可见
@@ -215,7 +232,10 @@ export function saveInitiate(data) {
  * @param description 转维说明
  * @param fileBOList 相关资料
  * @param ipList IP地址
+ * @param maintainOrg 维护单位信息
+ * @param maintainTrader 第三方维护商信息
  * @param conferenceBOList 会议纪要
+ * @param table 第三方使用管理情况统计表
  * @param saveVisible 保存按钮是否可见
  * @param editVisible 编辑按钮是否可见
  * @param archiveVisible 归档按钮是否可见
