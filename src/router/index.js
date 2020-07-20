@@ -5,14 +5,6 @@ import Layout from '@/components/layout'
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // },
   {
     path: '/login',
     name: 'Login',
@@ -69,6 +61,13 @@ export const asyncRouterMap = {
     component: () => import(/* webpackChunkName: 'hole' */ '../views/assets'),
     name: 'Assets',
     meta: { title: '项目资产管控', icon: 'means' },
+  },
+  dsfxmgl: {
+    path: 'otherterm',
+    component: () =>
+      import(/* webpackChunkName: 'otherterm' */ '../views/otherTerm'),
+    name: 'otherterm',
+    meta: { title: '第三方项目管控', icon: 'means' },
   },
   1: {
     path: '/count',

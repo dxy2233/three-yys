@@ -73,6 +73,33 @@ export function getProcessList(data) {
 }
 
 /**
+ * @description 第三方项目管理
+ * @param startPage 页面编号
+ * @param pageSize 页面大小
+ * @param projectName 项目名称
+ * @param platformName 系统/平台名称
+ * @param cityId 影响范围
+ */
+export function getProjectList(data) {
+  return request({
+    url: '/process/getProjectList',
+    method: 'post',
+    data,
+  })
+}
+
+/**
+ * @description 获取第三方使用管理情况统计表
+ */
+export function getStatisticsTableByProcessId(processId) {
+  return request({
+    url: '/process/getStatisticsTableByProcessId',
+    method: 'get',
+    params: { processId },
+  })
+}
+
+/**
  * @description 暂停项目：id 流程ID；pause 为true是暂停，为false是恢复；reason 暂停或恢复的原因
  */
 export function pauseProcess(id, pause, reason) {
