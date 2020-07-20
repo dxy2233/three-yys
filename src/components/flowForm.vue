@@ -1240,7 +1240,7 @@
                 <baseFormItem label="第三方人员参与模式" required>
                   <label>
                     <input
-                      type="checkbox"
+                      type="radio"
                       v-model="allData.maintainBO.table.mode"
                       :value="1"
                       :disabled="item.lock"
@@ -1249,7 +1249,7 @@
                   </label>
                   <label>
                     <input
-                      type="checkbox"
+                      type="radio"
                       v-model="allData.maintainBO.table.mode"
                       :value="2"
                       :disabled="item.lock"
