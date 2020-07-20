@@ -171,7 +171,7 @@
           <!-- 建设 -->
           <div v-else-if="item.key === 'construction'">
             <div class="items">
-              <div class="item" style="width: 50%;">
+              <div class="item">
                 <label><em>*</em>选择项目厂商</label>
                 <select
                   v-model="allData.constructionBO.firmId"
@@ -185,6 +185,7 @@
                   >
                 </select>
               </div>
+              <div class="item"></div>
               <div class="item"></div>
               <div class="item">
                 <label><em>*</em>建设单位</label>
@@ -621,11 +622,13 @@
           <!-- 初验 -->
           <div v-else-if="item.key === 'acceptFirst'">
             <div class="items">
-              <div class="item" style="width: 85%; margin-bottom: 5px;">
-                <label><em>*</em>验收结论</label>
+              <div class="item" style="width: 100%; margin-bottom: 5px;">
+                <label style="width: 11.11%; margin-right: 1%;">
+                  <em>*</em>验收结论
+                </label>
                 <textarea
                   v-model="allData.acceptFirstBO.summary"
-                  rows="10"
+                  rows="8"
                   :disabled="item.lock"
                 ></textarea>
               </div>
@@ -700,11 +703,13 @@
           <!-- 终验 -->
           <div v-else-if="item.key === 'acceptFinal'">
             <div class="items">
-              <div class="item" style="width: 85%; margin-bottom: 5px;">
-                <label><em>*</em>验收结论</label>
+              <div class="item" style="width: 100%; margin-bottom: 5px;">
+                <label style="width: 11.11%; margin-right: 1%;"
+                  ><em>*</em>验收结论</label
+                >
                 <textarea
                   v-model="allData.acceptFinalBO.summary"
-                  rows="10"
+                  rows="8"
                   :disabled="item.lock"
                 ></textarea>
               </div>
@@ -848,31 +853,41 @@
             </div>
             <h4>IP地址</h4>
             {{ allData.maintainBO.ipList.join('，') }}
-            <div class="report-wrap">
-              <h5></h5>
+            <div class="report-wrap baseline">
+              <h5>系统平台第三方使用管理情况统计表</h5>
+              <br />
               <baseForm class="big-label">
-                <baseFormItem label="平台名称" required>
+                <baseFormItem label="系统/平台名称" required>
                   <input
                     type="text"
                     v-model="allData.maintainBO.table.platformName"
                     :disabled="item.lock"
                   />
                 </baseFormItem>
-                <baseFormItem label="平台主管单位名称" required>
+                <baseFormItem
+                  label="系统/平台主管单位名称（账号管理单位）"
+                  required
+                >
                   <input
                     type="text"
                     v-model="allData.maintainBO.table.supervisorOrgName"
                     :disabled="item.lock"
                   />
                 </baseFormItem>
-                <baseFormItem label="运行维护单位" required>
+                <baseFormItem
+                  label="系统/平台运营单位名称（运行维护单位）"
+                  required
+                >
                   <input
                     type="text"
                     v-model="allData.maintainBO.table.maintainOrgName"
                     :disabled="item.lock"
                   />
                 </baseFormItem>
-                <baseFormItem label="用户重要信息类型" required>
+                <baseFormItem
+                  label="系统/平台内存储或可查询用户个人信息或重要信息类型"
+                  required
+                >
                   <label>
                     <input
                       type="checkbox"
@@ -928,7 +943,10 @@
                     无
                   </label>
                 </baseFormItem>
-                <baseFormItem label="用户个人信息最高等级" required>
+                <baseFormItem
+                  label="系统/平台内存储或可查询用户个人信息最高等级"
+                  required
+                >
                   <label>
                     <input
                       type="radio"
@@ -957,7 +975,7 @@
                     3
                   </label>
                 </baseFormItem>
-                <baseFormItem label="平台影响范围" required>
+                <baseFormItem label="系统/平台影响范围" required>
                   <baseCascader
                     v-model="allData.maintainBO.table.cityId"
                     :data="cityData"
@@ -966,7 +984,7 @@
                     :disabled="item.lock"
                   />
                 </baseFormItem>
-                <baseFormItem label="平台账号实名制管理" required>
+                <baseFormItem label="系统/平台账号实名制管理" required>
                   <label>
                     <input
                       type="radio"
@@ -986,21 +1004,21 @@
                     否
                   </label>
                 </baseFormItem>
-                <baseFormItem label="平台登陆日志保存时间(月)" required>
+                <baseFormItem label="系统/平台登陆日志保存时间(月)" required>
                   <input
                     type="text"
                     v-model="allData.maintainBO.table.loginRecord"
                     :disabled="item.lock"
                   />
                 </baseFormItem>
-                <baseFormItem label="平台操作日志保存时间(月)" required>
+                <baseFormItem label="系统/平台操作日志保存时间(月)" required>
                   <input
                     type="text"
                     v-model="allData.maintainBO.table.operateRecord"
                     :disabled="item.lock"
                   />
                 </baseFormItem>
-                <baseFormItem label="平台默认口令复杂度" required>
+                <baseFormItem label="系统/平台默认口令复杂度" required>
                   <label>
                     <input
                       type="radio"
@@ -1038,7 +1056,7 @@
                     4级
                   </label>
                 </baseFormItem>
-                <baseFormItem label="平台默认口令有效期(天)" required>
+                <baseFormItem label="系统/平台默认口令复有效期(天)" required>
                   <input
                     type="text"
                     v-model="allData.maintainBO.table.expiration"
@@ -1053,7 +1071,7 @@
                   />
                 </baseFormItem>
                 <baseFormItem
-                  label="平台是否开设了第三方账号（包括把内部账号授予第三方使用）"
+                  label="系统/平台是否开设了第三方账号（包括把内部账号授予第三方使用）"
                   required
                 >
                   <label>
@@ -1098,7 +1116,10 @@
                     否
                   </label>
                 </baseFormItem>
-                <baseFormItem label="第三方的程序和决策审核流程决策人" required>
+                <baseFormItem
+                  label="决定引入第三方的程序和决策审核流程具体决策人"
+                  required
+                >
                   <input
                     type="text"
                     v-model="allData.maintainBO.table.policyPersonName"
@@ -2854,6 +2875,7 @@ export default {
         }
         div > .report-wrap {
           margin: 20px 0;
+          padding-bottom: 10px;
           h5 {
             padding: 5px 10px;
           }
