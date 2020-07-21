@@ -569,6 +569,14 @@
                   <template #button="props">
                     <button
                       v-show="props.row.downloadVisible"
+                      @click="
+                        toNewPage(5, null, null, null, null, props.row.fileId)
+                      "
+                    >
+                      查看
+                    </button>
+                    <button
+                      v-show="props.row.downloadVisible"
                       @click="downloadFlaw(props.row.fileId)"
                     >
                       下载
@@ -2578,7 +2586,7 @@ export default {
       }
     },
     // 跳新页面
-    toNewPage(type, processId, status, deviceId, assetInfo) {
+    toNewPage(type, processId, status, deviceId, assetInfo, fileId) {
       const newPage = this.$router.resolve({
         path: '/reportform',
         query: {
@@ -2587,6 +2595,7 @@ export default {
           status: status,
           deviceId: deviceId,
           assetInfo: assetInfo,
+          fileId: fileId,
         },
       })
       window.open(newPage.href, '_blank')

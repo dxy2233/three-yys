@@ -481,6 +481,72 @@
         </div>
       </baseForm>
     </baseDialog>
+
+    <!-- 漏洞文件查看 -->
+    <div v-else-if="type === '5'" class="flaw-files">
+      <baseTable :tableData="tableData.list">
+        <baseCol prop="cveId" label="CVE编号" />
+        <baseCol prop="name" label="漏洞标题" />
+        <baseCol prop="ip" label="IP地址" />
+        <baseCol prop="port" label="端口" />
+        <baseCol prop="uploadTime" label="上传时间" />
+        <baseCol prop="level" label="危险级别 ">
+          <template #button="props">
+            <span
+              class="level"
+              :class="[
+                { high: props.row.level === '高危' },
+                { middle: props.row.level === '中危' },
+                { low: props.row.level === '低危' },
+              ]"
+              >{{ props.row.level }}</span
+            >
+          </template>
+        </baseCol>
+        <baseCol prop="status" label="漏洞状态 " />
+        <baseCol label="操作">
+          <template #button="props">
+            <button @click="openDialog(props.row)">
+              查看
+            </button>
+          </template>
+        </baseCol>
+      </baseTable>
+
+      <basePagination
+        :currentPage.sync="tableForm.startPage"
+        :total="tableData.total"
+        :pages="tableData.pages"
+        @changeCurrentPage="init"
+      />
+
+      <baseDialog :visible.sync="dialogFlawFiles">
+        <template #title>漏洞详情</template>
+        <baseForm ref="flawFiles" :form="flawFileForm">
+          <baseFormItem label="CVE编号" required>
+            <input type="text" v-model="flawFileForm.cveId" />
+          </baseFormItem>
+          <baseFormItem label="IP地址" required>
+            <input type="text" v-model="flawFileForm.ip" />
+          </baseFormItem>
+          <baseFormItem label="端口" required>
+            <input type="text" v-model="flawFileForm.port" />
+          </baseFormItem>
+          <baseFormItem label="漏洞标题" required>
+            <input type="text" v-model="flawFileForm.name" />
+          </baseFormItem>
+          <baseFormItem label="危险级别" required>
+            <input type="text" v-model="flawFileForm.level" />
+          </baseFormItem>
+          <baseFormItem label="漏洞描述" required>
+            <textarea rows="10" v-model="flawFileForm.description"></textarea>
+          </baseFormItem>
+          <baseFormItem label="解决方案" required>
+            <textarea rows="10" v-model="flawFileForm.solution"></textarea>
+          </baseFormItem>
+        </baseForm>
+      </baseDialog>
+    </div>
   </div>
 </template>
 
@@ -495,7 +561,7 @@ import {
   reformPenetration,
   saveReviewPenetration,
 } from '@/api/reportCommon'
-import { uploadFlawReport } from '@/api/flawCommon'
+import { uploadFlawReport, getFlawListByFileId } from '@/api/flawCommon'
 import { getDeviceAssetsById, getAsstesByDeviceId } from '@/api/device'
 import { download } from '@/api/sftp'
 
@@ -521,6 +587,7 @@ export default {
       status: null,
       deviceId: null,
       assetInfo: null,
+      fileId: null,
       currentCell: {},
       dialog: true,
       baseForm: {
@@ -618,16 +685,19 @@ export default {
         tel: [{ required: true, message: '请输入联系方式', trigger: 'blur' }],
         file: [{ required: true, message: '请上传文件', trigger: 'change' }],
       },
+      tableForm: {
+        startPage: 1,
+        pageSize: 20,
+      },
+      tableData: {
+        startPage: 1,
+        pageSize: 20,
+      },
+      dialogFlawFiles: false,
+      flawFileForm: {},
     }
   },
   computed: {
-    // baseAssetsDataOptional() {
-    //   let res = []
-    //   res = this.baseAssetsData.filter(
-    //     (item) => !this.seepTable.some((item2) => item2.leakIp === item.leakIp)
-    //   )
-    //   return res
-    // },
     seepTableIndex() {
       let res = this.seepTable
       res.forEach((item, index) => {
@@ -685,6 +755,10 @@ export default {
         }
         this.seepTable = res.data.simReportPenetrationBOS
       })
+    }
+    // 漏洞文件列表
+    if (this.type === '5') {
+      this.init()
     }
   },
   methods: {
@@ -854,102 +928,123 @@ export default {
         })
       })
     },
+    init(isSearch) {
+      if (isSearch) this.tableForm.startPage = 1
+      getFlawListByFileId(
+        this.fileId,
+        this.tableForm.pageSize,
+        this.tableForm.startPage
+      ).then((res) => {
+        this.tableData = res.data
+      })
+    },
+    openDialog(info) {
+      this.$nextTick(() => {
+        this.$refs.flawFiles.$el
+          .querySelectorAll('input, select, textarea')
+          .forEach((item) => (item.disabled = true))
+      })
+      this.dialogFlawFiles = true
+      this.flawFileForm = info
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.dialog {
-  background: #ebebeb;
-  /deep/ .wrap {
-    box-shadow: none;
-    .dialog-title {
-      font-size: 22px;
-      margin: 0 auto;
-      color: #045fc9;
-      background: #ebebeb;
-      padding: 10px 3% 0 3%;
-      > span:last-child {
-        display: none;
-      }
-    }
-    .dialog-body {
-      padding: 10px 3%;
-      .content {
-        text-align: center;
-        background: #fff;
-        h4 {
-          background: #0196e0;
-          color: #fff;
-          text-align: left;
-          padding: 8px 15px;
+.report-form {
+  > .dialog {
+    background: #ebebeb;
+    /deep/ .wrap {
+      box-shadow: none;
+      .dialog-title {
+        font-size: 22px;
+        margin: 0 auto;
+        color: #045fc9;
+        background: #ebebeb;
+        padding: 10px 3% 0 3%;
+        > span:last-child {
+          display: none;
         }
-        .box {
-          text-align: left;
-          padding: 20px 0;
-          display: flex;
-          flex-wrap: wrap;
-          width: 80%;
-          margin: 0 auto;
-          .form-gound {
-            width: 50%;
+      }
+      .dialog-body {
+        padding: 10px 3%;
+        .content {
+          text-align: center;
+          background: #fff;
+          h4 {
+            background: #0196e0;
+            color: #fff;
+            text-align: left;
+            padding: 8px 15px;
           }
-          .f-full {
-            width: 100%;
-            .form-item > label {
-              flex: 1;
+          .box {
+            text-align: left;
+            padding: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            width: 80%;
+            margin: 0 auto;
+            .form-gound {
+              width: 50%;
             }
-            .form-item > span {
-              flex: 8;
-              select {
-                width: 43.4%;
+            .f-full {
+              width: 100%;
+              .form-item > label {
+                flex: 1;
+              }
+              .form-item > span {
+                flex: 8;
+                select {
+                  width: 43.4%;
+                }
               }
             }
           }
-        }
-        table {
-          width: 96%;
-          margin: 15px auto;
-          border: 1px solid #608ad2;
-          thead > tr {
-            background: #608ad2;
+          table {
+            width: 96%;
+            margin: 15px auto;
+            border: 1px solid #608ad2;
+            thead > tr {
+              background: #608ad2;
+            }
           }
         }
-      }
-      .details {
-        padding: 0 20px 20px 20px;
-        background: #fff;
-        .group > .title {
-          color: #0196e0;
-          font-weight: bold;
-          border-bottom: 1px solid #ccc;
-          padding-bottom: 10px;
-          margin-bottom: 10px;
-          font-size: 16px;
-        }
-        .group {
-          text-align: left;
-          .caption {
+        .details {
+          padding: 0 20px 20px 20px;
+          background: #fff;
+          .group > .title {
+            color: #0196e0;
             font-weight: bold;
-          }
-          .item {
             border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
             margin-bottom: 10px;
-            margin-left: 20px;
-            .form-item {
-              flex-flow: column;
-              padding: unset;
-              > label {
-                text-align: left;
-              }
-              > span {
-                width: 100%;
-              }
+            font-size: 16px;
+          }
+          .group {
+            text-align: left;
+            .caption {
+              font-weight: bold;
             }
-            .radio-box {
-              label {
-                input[type='text'] {
-                  width: unset;
+            .item {
+              border-bottom: 1px solid #ccc;
+              margin-bottom: 10px;
+              margin-left: 20px;
+              .form-item {
+                flex-flow: column;
+                padding: unset;
+                > label {
+                  text-align: left;
+                }
+                > span {
+                  width: 100%;
+                }
+              }
+              .radio-box {
+                label {
+                  input[type='text'] {
+                    width: unset;
+                  }
                 }
               }
             }
@@ -978,6 +1073,36 @@ form {
     background: #fff;
     border: 1px solid #ff4949;
     border-radius: 50%;
+  }
+}
+.flaw-files {
+  .level {
+    position: relative;
+    display: inline-block;
+    margin-left: 18px;
+    &::before {
+      position: absolute;
+      width: 12px;
+      height: 4px;
+      content: '';
+      left: -15px;
+      top: 7px;
+    }
+  }
+  .high {
+    &::before {
+      background: #ff0000;
+    }
+  }
+  .middle {
+    &::before {
+      background: #ffe600;
+    }
+  }
+  .low {
+    &::before {
+      background: #5bd60a;
+    }
   }
 }
 </style>
