@@ -33,7 +33,7 @@
     </div>
 
     <baseTable :tableData="tableData.list">
-      <baseCol prop="id" label="编号" />
+      <baseCol prop="code" label="编号" />
       <baseCol prop="name" label="服务商名称" />
       <baseCol prop="startTime" label="服务开始时间" />
       <baseCol prop="endTime" label="服务结束时间" />

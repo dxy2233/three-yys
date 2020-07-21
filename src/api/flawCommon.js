@@ -26,11 +26,11 @@ export function downloadFlaw(fileId) {
 /**
  * @description 获取漏洞详情列表
  */
-export function getFlawListByFileId(fileId) {
+export function getFlawListByFileId(fileId, pageSize, startPage) {
   return request({
     url: '/flawcommon/getFlawListByFileId',
     method: 'get',
-    params: { fileId },
+    params: { fileId, pageSize, startPage },
   })
 }
 
