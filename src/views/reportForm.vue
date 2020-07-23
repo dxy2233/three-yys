@@ -495,9 +495,18 @@
             <span
               class="level"
               :class="[
-                { high: props.row.level === '高危' },
-                { middle: props.row.level === '中危' },
-                { low: props.row.level === '低危' },
+                {
+                  high:
+                    props.row.status === '未整改' && props.row.level === '严重',
+                },
+                {
+                  middle:
+                    props.row.status === '未整改' && props.row.level === '高危',
+                },
+                {
+                  low:
+                    props.row.status === '未整改' && props.row.level === '中危',
+                },
               ]"
               >{{ props.row.level }}</span
             >
@@ -533,7 +542,7 @@
             <input type="text" v-model="flawFileForm.port" />
           </baseFormItem>
           <baseFormItem label="漏洞标题" required>
-            <input type="text" v-model="flawFileForm.name" />
+            <textarea rows="3" v-model="flawFileForm.name" />
           </baseFormItem>
           <baseFormItem label="危险级别" required>
             <input type="text" v-model="flawFileForm.level" />
@@ -1076,11 +1085,14 @@ form {
   }
 }
 .flaw-files {
+  width: 90%;
+  margin: 20px auto;
   .level {
     position: relative;
     display: inline-block;
     margin-left: 18px;
     &::before {
+      background: #5bd60a;
       position: absolute;
       width: 12px;
       height: 4px;
@@ -1091,17 +1103,17 @@ form {
   }
   .high {
     &::before {
-      background: #ff0000;
+      background: #a70101;
     }
   }
   .middle {
     &::before {
-      background: #ffe600;
+      background: #ff0000;
     }
   }
   .low {
     &::before {
-      background: #5bd60a;
+      background: #ffe600;
     }
   }
 }

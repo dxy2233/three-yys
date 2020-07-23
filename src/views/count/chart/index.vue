@@ -1087,7 +1087,7 @@ export default {
             show: true,
             lineStyle: {
               type: 'solid',
-              color: '#00a8b3', // 刻度线的颜色
+              color: '#666', // 刻度线的颜色
             },
           },
         },
@@ -1097,7 +1097,7 @@ export default {
           axisLine: {
             lineStyle: {
               type: 'solid', // 刻度线的颜色
-              color: '#00a8b3', // 刻度字的颜色
+              color: '#666', // 刻度字的颜色
             },
           },
           axisLabel: {
@@ -1118,11 +1118,13 @@ export default {
             type: 'bar',
             barGap: 0,
             data: list.map((item) => item.value),
+            color: '#ff0000',
           },
           {
             name: '中危',
             type: 'bar',
             data: list.map((item) => item.value1),
+            color: '#ffe600',
           },
         ],
       }

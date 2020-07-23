@@ -862,7 +862,12 @@
             <h4>IP地址</h4>
             {{ allData.maintainBO.ipList.join('，') }}
             <div class="report-wrap baseline">
-              <h5>系统平台第三方使用管理情况统计表</h5>
+              <h5>
+                <input
+                  type="checkbox"
+                  v-model="allData.maintainBO.isSaveTable"
+                />系统平台第三方使用管理情况统计表
+              </h5>
               <br />
               <baseForm class="big-label">
                 <baseFormItem label="系统/平台名称" required>
@@ -900,7 +905,7 @@
                     <input
                       type="checkbox"
                       v-model="allData.maintainBO.table.infoTypeList"
-                      :value="0"
+                      :value="1"
                       :disabled="item.lock"
                     />
                     身份信息
@@ -909,7 +914,7 @@
                     <input
                       type="checkbox"
                       v-model="allData.maintainBO.table.infoTypeList"
-                      :value="1"
+                      :value="2"
                       :disabled="item.lock"
                     />
                     业务/合作信息
@@ -918,7 +923,7 @@
                     <input
                       type="checkbox"
                       v-model="allData.maintainBO.table.infoTypeList"
-                      :value="2"
+                      :value="3"
                       :disabled="item.lock"
                     />
                     通信信息
@@ -927,7 +932,16 @@
                     <input
                       type="checkbox"
                       v-model="allData.maintainBO.table.infoTypeList"
-                      :value="3"
+                      :value="4"
+                      :disabled="item.lock"
+                    />
+                    消费信息
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      v-model="allData.maintainBO.table.infoTypeList"
+                      :value="5"
                       :disabled="item.lock"
                     />
                     用户账号密码信息
@@ -936,7 +950,7 @@
                     <input
                       type="checkbox"
                       v-model="allData.maintainBO.table.infoTypeList"
-                      :value="4"
+                      :value="0"
                       :disabled="item.lock"
                     />
                     其它
@@ -945,7 +959,7 @@
                     <input
                       type="checkbox"
                       v-model="allData.maintainBO.table.infoTypeList"
-                      :value="5"
+                      :value="6"
                       :disabled="item.lock"
                     />
                     无
@@ -1239,12 +1253,8 @@
                     :disabled="item.lock"
                   >
                     <option :value="1">系统/平台集成</option>
-                    <option :value="2">外包</option>
-                    <option :value="3">代维</option>
-                    <option :value="4">维保</option>
-                    <option :value="5">业务合作</option>
-                    <option :value="6">技术支撑</option>
-                    <option :value="7">赠送</option>
+                    <option :value="2">外包、代维、维保、业务合作</option>
+                    <option :value="3">技术支撑、赠送</option>
                   </select>
                 </baseFormItem>
                 <baseFormItem label="第三方项目来源方式" required>
@@ -1269,8 +1279,8 @@
                 <baseFormItem label="第三方人员参与模式" required>
                   <label>
                     <input
-                      type="radio"
-                      v-model="allData.maintainBO.table.mode"
+                      type="checkbox"
+                      v-model="allData.maintainBO.table.modeList"
                       :value="1"
                       :disabled="item.lock"
                     />
@@ -1278,8 +1288,8 @@
                   </label>
                   <label>
                     <input
-                      type="radio"
-                      v-model="allData.maintainBO.table.mode"
+                      type="checkbox"
+                      v-model="allData.maintainBO.table.modeList"
                       :value="2"
                       :disabled="item.lock"
                     />

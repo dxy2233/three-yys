@@ -32,7 +32,6 @@
       <label v-if="info.visibleMap.orgTree">
         所属单位
         <baseCascader
-          v-if="info.visibleMap.orgTree"
           v-model="tableForm.orgId"
           :data="systemOrgNodeTreeSearch"
         />
@@ -195,7 +194,7 @@
         >
           <input type="number" v-model="form.ipAddressNum" />
         </baseFormItem>
-        <button type="button" @click="submit">
+        <button v-if="dialogTitle !== '备案详情'" type="button" @click="submit">
           <svg-icon icon-class="save" />保存
         </button>
       </baseForm>

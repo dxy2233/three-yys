@@ -69,6 +69,7 @@ input,
 select,
 button,
 textarea {
+  outline: none;
   overflow: hidden;
   &[disabled] {
     background: #ffecec;
