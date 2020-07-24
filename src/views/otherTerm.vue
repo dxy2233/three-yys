@@ -56,7 +56,7 @@
       @changeCurrentPage="init"
     />
 
-    <baseDialog :visible.sync="dialog">
+    <baseDialog :visible.sync="dialog" top="0">
       <template #title
         >{{ dialogTitle }}公司系统平台第三方使用管理情况统计表</template
       >
@@ -374,3 +374,20 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+/deep/.dialog-body {
+  height: calc(100vh - 45px);
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+  &::-webkit-scrollbar-track-piece {
+    background-color: #fafafa;
+    border-radius: 3px;
+  }
+  &::-webkit-scrollbar-thumb:vertical {
+    background-color: #ccc;
+    border-radius: 3px;
+  }
+}
+</style>

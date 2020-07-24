@@ -60,8 +60,7 @@ select {
   height: 30px;
   padding: 0 3px;
   background: #fafafa;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  border: 1px solid #ccc;  
   box-sizing: border-box;
 }
 
@@ -80,6 +79,9 @@ textarea {
 input {
   &[type='file'] {
     display: none;
+  }
+  &[type='radio']{
+    border-radius: 50%;
   }
   &[type='radio'],
   &[type='checkbox'] {

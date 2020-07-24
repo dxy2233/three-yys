@@ -1126,19 +1126,21 @@
                       :value="2"
                       :disabled="item.lock"
                     />
-                    是
+                    有
                   </label>
                   <label>
                     <input
                       type="radio"
                       v-model="allData.maintainBO.table.useThird"
                       :value="1"
+                      @change="allData.maintainBO.table.policyPersonName = ''"
                       :disabled="item.lock"
                     />
-                    否
+                    无
                   </label>
                 </baseFormItem>
                 <baseFormItem
+                  v-if="allData.maintainBO.table.useThird === 2"
                   label="决定引入第三方的程序和决策审核流程具体决策人"
                   required
                 >
