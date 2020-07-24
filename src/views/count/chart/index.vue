@@ -1226,6 +1226,8 @@ export default {
           padding: 0 5px;
         }
         > .info-right {
+          flex: 1;
+          text-align: right;
           select {
             margin-left: 10px;
             width: 100px;

@@ -955,15 +955,6 @@
                     />
                     其它
                   </label>
-                  <label>
-                    <input
-                      type="checkbox"
-                      v-model="allData.maintainBO.table.infoTypeList"
-                      :value="6"
-                      :disabled="item.lock"
-                    />
-                    无
-                  </label>
                 </baseFormItem>
                 <baseFormItem
                   label="系统/平台内存储或可查询用户个人信息最高等级"
@@ -1140,7 +1131,7 @@
                   </label>
                 </baseFormItem>
                 <baseFormItem
-                  v-if="allData.maintainBO.table.useThird === 2"
+                  v-show="allData.maintainBO.table.useThird === 2"
                   label="决定引入第三方的程序和决策审核流程具体决策人"
                   required
                 >

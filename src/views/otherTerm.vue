@@ -61,45 +61,51 @@
         >{{ dialogTitle }}公司系统平台第三方使用管理情况统计表</template
       >
       <baseForm ref="otherTermForm" :form="form">
-        <baseFormItem label="项目名称" required>
+        <!-- <baseFormItem label="项目名称" required>
+          <input type="text" v-model="form.platformName" />
+        </baseFormItem> -->
+        <baseFormItem label="系统/平台名称" required>
           <input type="text" v-model="form.platformName" />
         </baseFormItem>
-        <baseFormItem label="系统/平台名称" required>
+        <baseFormItem label="系统/平台主管单位名称（账号管理单位）" required>
           <input type="text" v-model="form.supervisorOrgName" />
         </baseFormItem>
-        <baseFormItem label="系统/平台主管单位名称（账号管理单位）" required>
-          <input type="text" v-model="form.thirdOrgName" />
-        </baseFormItem>
-        <baseFormItem label="运行维护单位" required>
+        <baseFormItem label="系统/平台运营单位名称（运行维护单位）" required>
           <input type="text" v-model="form.maintainOrgName" />
         </baseFormItem>
-        <baseFormItem label="用户重要信息类型" required>
+        <baseFormItem
+          label="系统/平台内存储或可查询用户个人信息或重要信息类型"
+          required
+        >
           <label>
-            <input type="checkbox" v-model="form.infoTypeList" :value="0" />
+            <input type="checkbox" v-model="form.infoTypeList" :value="1" />
             身份信息
           </label>
           <label>
-            <input type="checkbox" v-model="form.infoTypeList" :value="1" />
+            <input type="checkbox" v-model="form.infoTypeList" :value="2" />
             业务/合作信息
           </label>
           <label>
-            <input type="checkbox" v-model="form.infoTypeList" :value="2" />
+            <input type="checkbox" v-model="form.infoTypeList" :value="3" />
             通信信息
           </label>
           <label>
-            <input type="checkbox" v-model="form.infoTypeList" :value="3" />
-            用户账号密码信息
-          </label>
-          <label>
             <input type="checkbox" v-model="form.infoTypeList" :value="4" />
-            其它
+            消费信息
           </label>
           <label>
             <input type="checkbox" v-model="form.infoTypeList" :value="5" />
-            无
+            用户账号密码信息
+          </label>
+          <label>
+            <input type="checkbox" v-model="form.infoTypeList" :value="0" />
+            其它
           </label>
         </baseFormItem>
-        <baseFormItem label="用户个人信息最高等级" required>
+        <baseFormItem
+          label="系统/平台内存储或可查询用户个人信息最高等级"
+          required
+        >
           <label>
             <input type="radio" v-model="form.infoLevel" :value="1" />
             1
@@ -113,7 +119,7 @@
             3
           </label>
         </baseFormItem>
-        <baseFormItem label="平台影响范围" required>
+        <baseFormItem label="系统/平台影响范围" required>
           <baseCascader
             v-model="form.cityId"
             :data="cityData"
@@ -122,7 +128,7 @@
             disabled
           />
         </baseFormItem>
-        <baseFormItem label="平台账号实名制管理" required>
+        <baseFormItem label="系统/平台账号实名制管理" required>
           <label>
             <input type="radio" v-model="form.realName" :value="2" />
             是
@@ -132,13 +138,13 @@
             否
           </label>
         </baseFormItem>
-        <baseFormItem label="平台登陆日志保存时间(月)" required>
+        <baseFormItem label="系统/平台登陆日志保存时间(月)" required>
           <input type="text" v-model="form.loginRecord" />
         </baseFormItem>
-        <baseFormItem label="平台操作日志保存时间(月)" required>
+        <baseFormItem label="系统/平台操作日志保存时间(月)" required>
           <input type="text" v-model="form.operateRecord" />
         </baseFormItem>
-        <baseFormItem label="平台默认口令复杂度" required>
+        <baseFormItem label="系统/平台默认口令复杂度" required>
           <label>
             <input type="radio" v-model="form.complexity" :value="1" />
             1级
@@ -156,14 +162,14 @@
             4级
           </label>
         </baseFormItem>
-        <baseFormItem label="平台默认口令有效期(天)" required>
+        <baseFormItem label="系统/平台默认口令复有效期(天)" required>
           <input type="text" v-model="form.expiration" />
         </baseFormItem>
         <baseFormItem label="定期审计账号/操作周期(月)" required>
           <input type="text" v-model="form.auditCycle" />
         </baseFormItem>
         <baseFormItem
-          label="平台是否开设了第三方账号（包括把内部账号授予第三方使用）"
+          label="系统/平台是否开设了第三方账号（包括把内部账号授予第三方使用）"
           required
         >
           <label>
@@ -185,7 +191,11 @@
             否
           </label>
         </baseFormItem>
-        <baseFormItem label="第三方的程序和决策审核流程决策人" required>
+        <baseFormItem
+          v-show="form.useThird === 2"
+          label="决定引入第三方的程序和决策审核流程具体决策人"
+          required
+        >
           <input type="text" v-model="form.policyPersonName" />
         </baseFormItem>
         <baseFormItem
@@ -262,11 +272,11 @@
         </baseFormItem>
         <baseFormItem label="第三方人员参与模式" required>
           <label>
-            <input type="radio" v-model="form.mode" :value="1" />
+            <input type="checkbox" v-model="form.modeList" :value="1" />
             现场
           </label>
           <label>
-            <input type="radio" v-model="form.mode" :value="2" />
+            <input type="checkbox" v-model="form.modeList" :value="2" />
             远程
           </label>
         </baseFormItem>
