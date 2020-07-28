@@ -162,7 +162,7 @@
             4级
           </label>
         </baseFormItem>
-        <baseFormItem label="系统/平台默认口令复有效期(天)" required>
+        <baseFormItem label="系统/平台默认口令有效期(天)" required>
           <input type="text" v-model="form.expiration" />
         </baseFormItem>
         <baseFormItem label="定期审计账号/操作周期(月)" required>
@@ -184,11 +184,11 @@
         <baseFormItem label="有无决定引入第三方的程序和决策审核流程" required>
           <label>
             <input type="radio" v-model="form.useThird" :value="2" />
-            是
+            有
           </label>
           <label>
             <input type="radio" v-model="form.useThird" :value="1" />
-            否
+            无
           </label>
         </baseFormItem>
         <baseFormItem
@@ -250,12 +250,8 @@
         <baseFormItem label="第三方项目类型" required>
           <select v-model="form.projectType">
             <option :value="1">系统/平台集成</option>
-            <option :value="2">外包</option>
-            <option :value="3">代维</option>
-            <option :value="4">维保</option>
-            <option :value="5">业务合作</option>
-            <option :value="6">技术支撑</option>
-            <option :value="7">赠送</option>
+            <option :value="2">外包、代维、维保、业务合作</option>
+            <option :value="3">技术支撑、赠送</option>
           </select>
         </baseFormItem>
         <baseFormItem label="第三方项目来源方式" required>

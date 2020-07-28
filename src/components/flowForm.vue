@@ -1069,7 +1069,7 @@
                     4级
                   </label>
                 </baseFormItem>
-                <baseFormItem label="系统/平台默认口令复有效期(天)" required>
+                <baseFormItem label="系统/平台默认口令有效期(天)" required>
                   <input
                     type="text"
                     v-model="allData.maintainBO.table.expiration"
