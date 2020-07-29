@@ -1362,9 +1362,19 @@
                   >
                     上传文件
                   </button>
-                  <span class="link" style="margin: 0;">{{
-                    allData.maintainBO.table.protocolFileBO.fileName
-                  }}</span>
+                  <span
+                    @click="
+                      download(
+                        allData.maintainBO.table.protocolFileBO.fileId,
+                        false
+                      )
+                    "
+                    class="link"
+                    style="margin: 0;"
+                    >{{
+                      allData.maintainBO.table.protocolFileBO.fileName
+                    }}</span
+                  >
                 </baseFormItem>
                 <baseFormItem
                   label="定期检查第三方网络安全责任落实情况周期(月)"
