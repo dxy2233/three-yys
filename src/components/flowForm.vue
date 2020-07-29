@@ -143,6 +143,14 @@
                   :disabled="item.lock"
                 />
               </div>
+              <div class="item">
+                <label>通信地址</label>
+                <input
+                  type="text"
+                  v-model="allData.designBO.address"
+                  :disabled="item.lock"
+                />
+              </div>
               <div class="item" style="width: 66.6%;">
                 <label style="width: 15%;">变更签证</label>
                 <button
@@ -158,20 +166,12 @@
                   {{ allData.designBO.visa.name }}
                 </span>
               </div>
-              <div class="item">
-                <label>通信地址</label>
-                <input
-                  type="text"
-                  v-model="allData.designBO.address"
-                  :disabled="item.lock"
-                />
-              </div>
             </div>
           </div>
           <!-- 建设 -->
           <div v-else-if="item.key === 'construction'">
             <div class="items">
-              <div class="item">
+              <div class="item item-w">
                 <label><em>*</em>选择项目厂商</label>
                 <select
                   v-model="allData.constructionBO.firmId"
@@ -185,9 +185,8 @@
                   >
                 </select>
               </div>
-              <div class="item"></div>
-              <div class="item"></div>
-              <div class="item">
+              <div class="item item-w"></div>
+              <div class="item item-w">
                 <label><em>*</em>建设单位</label>
                 <input
                   type="text"
@@ -195,7 +194,7 @@
                   :disabled="item.lock"
                 />
               </div>
-              <div class="item">
+              <div class="item item-w">
                 <label><em>*</em>责任人</label>
                 <input
                   type="text"
@@ -203,7 +202,7 @@
                   :disabled="item.lock"
                 />
               </div>
-              <div class="item">
+              <div class="item item-w">
                 <label><em>*</em>联系方式</label>
                 <input
                   type="text"
@@ -211,7 +210,7 @@
                   :disabled="item.lock"
                 />
               </div>
-              <div class="item">
+              <div class="item item-w">
                 <label><em>*</em>邮箱</label>
                 <input
                   type="text"
@@ -219,9 +218,7 @@
                   :disabled="item.lock"
                 />
               </div>
-              <div class="item"></div>
-              <div class="item"></div>
-              <div class="item">
+              <div class="item item-w">
                 <label><em>*</em>承建单位</label>
                 <input
                   type="text"
@@ -229,7 +226,7 @@
                   :disabled="item.lock"
                 />
               </div>
-              <div class="item">
+              <div class="item item-w">
                 <label><em>*</em>责任人</label>
                 <input
                   type="text"
@@ -237,7 +234,7 @@
                   :disabled="item.lock"
                 />
               </div>
-              <div class="item">
+              <div class="item item-w">
                 <label><em>*</em>联系方式</label>
                 <input
                   type="text"
@@ -245,7 +242,7 @@
                   :disabled="item.lock"
                 />
               </div>
-              <div class="item">
+              <div class="item item-w">
                 <label><em>*</em>邮箱</label>
                 <input
                   type="text"
@@ -630,8 +627,72 @@
           <!-- 初验 -->
           <div v-else-if="item.key === 'acceptFirst'">
             <div class="items">
-              <div class="item" style="width: 100%; margin-bottom: 5px;">
-                <label style="width: 11.11%; margin-right: 1%;">
+              <div class="item item-w">
+                <label><em>*</em>建设单位</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFirstBO.buildOrg.org"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item item-w">
+                <label><em>*</em>责任人</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFirstBO.buildOrg.principal"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item item-w">
+                <label><em>*</em>联系方式</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFirstBO.buildOrg.tel"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item item-w">
+                <label><em>*</em>邮箱</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFirstBO.buildOrg.email"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item item-w">
+                <label><em>*</em>承建单位</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFirstBO.contractOrg.org"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item item-w">
+                <label><em>*</em>责任人</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFirstBO.contractOrg.principal"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item item-w">
+                <label><em>*</em>联系方式</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFirstBO.contractOrg.tel"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item item-w">
+                <label><em>*</em>邮箱</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFirstBO.contractOrg.email"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item" style="width: 97%; margin-bottom: 5px;">
+                <label style="width: 11.8%; margin-right: 1%;">
                   <em>*</em>验收结论
                 </label>
                 <textarea
@@ -640,79 +701,77 @@
                   :disabled="item.lock"
                 ></textarea>
               </div>
-              <div class="item">
-                <label><em>*</em>建设单位</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFirstBO.buildOrg.org"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item">
-                <label><em>*</em>责任人</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFirstBO.buildOrg.principal"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item">
-                <label><em>*</em>联系方式</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFirstBO.buildOrg.tel"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item">
-                <label><em>*</em>邮箱</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFirstBO.buildOrg.email"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item"></div>
-              <div class="item"></div>
-              <div class="item">
-                <label><em>*</em>承建单位</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFirstBO.contractOrg.org"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item">
-                <label><em>*</em>责任人</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFirstBO.contractOrg.principal"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item">
-                <label><em>*</em>联系方式</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFirstBO.contractOrg.tel"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item">
-                <label><em>*</em>邮箱</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFirstBO.contractOrg.email"
-                  :disabled="item.lock"
-                />
-              </div>
             </div>
           </div>
           <!-- 终验 -->
           <div v-else-if="item.key === 'acceptFinal'">
             <div class="items">
-              <div class="item" style="width: 100%; margin-bottom: 5px;">
-                <label style="width: 11.11%; margin-right: 1%;"
+              <div class="item item-w">
+                <label><em>*</em>建设单位</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFinalBO.buildOrg.org"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item item-w">
+                <label><em>*</em>责任人</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFinalBO.buildOrg.principal"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item item-w">
+                <label><em>*</em>联系方式</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFinalBO.buildOrg.tel"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item item-w">
+                <label><em>*</em>邮箱</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFinalBO.buildOrg.email"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item item-w">
+                <label><em>*</em>承建单位</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFinalBO.contractOrg.org"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item item-w">
+                <label><em>*</em>责任人</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFinalBO.contractOrg.principal"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item item-w">
+                <label><em>*</em>联系方式</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFinalBO.contractOrg.tel"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item item-w">
+                <label><em>*</em>邮箱</label>
+                <input
+                  type="text"
+                  v-model="allData.acceptFinalBO.contractOrg.email"
+                  :disabled="item.lock"
+                />
+              </div>
+              <div class="item" style="width: 97%; margin-bottom: 5px;">
+                <label style="width: 11.8%; margin-right: 1%;"
                   ><em>*</em>验收结论</label
                 >
                 <textarea
@@ -721,78 +780,12 @@
                   :disabled="item.lock"
                 ></textarea>
               </div>
-              <div class="item">
-                <label><em>*</em>建设单位</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFinalBO.buildOrg.org"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item">
-                <label><em>*</em>责任人</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFinalBO.buildOrg.principal"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item">
-                <label><em>*</em>联系方式</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFinalBO.buildOrg.tel"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item">
-                <label><em>*</em>邮箱</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFinalBO.buildOrg.email"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item"></div>
-              <div class="item"></div>
-              <div class="item">
-                <label><em>*</em>承建单位</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFinalBO.contractOrg.org"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item">
-                <label><em>*</em>责任人</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFinalBO.contractOrg.principal"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item">
-                <label><em>*</em>联系方式</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFinalBO.contractOrg.tel"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item">
-                <label><em>*</em>邮箱</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFinalBO.contractOrg.email"
-                  :disabled="item.lock"
-                />
-              </div>
             </div>
           </div>
           <!-- 转维 -->
           <div v-else-if="item.key === 'maintain'">
             <div class="items">
-              <div class="item">
+              <div class="item item-w">
                 <label><em>*</em>维护单位</label>
                 <input
                   type="text"
@@ -800,7 +793,7 @@
                   :disabled="item.lock"
                 />
               </div>
-              <div class="item">
+              <div class="item item-w">
                 <label><em>*</em>责任人</label>
                 <input
                   type="text"
@@ -808,7 +801,7 @@
                   :disabled="item.lock"
                 />
               </div>
-              <div class="item">
+              <div class="item item-w">
                 <label><em>*</em>联系方式</label>
                 <input
                   type="text"
@@ -816,7 +809,7 @@
                   :disabled="item.lock"
                 />
               </div>
-              <div class="item">
+              <div class="item item-w">
                 <label><em>*</em>邮箱</label>
                 <input
                   type="text"
@@ -824,9 +817,7 @@
                   :disabled="item.lock"
                 />
               </div>
-              <div class="item"></div>
-              <div class="item"></div>
-              <div class="item">
+              <div class="item item-w">
                 <label><em>*</em>第三方维护商</label>
                 <input
                   type="text"
@@ -834,7 +825,7 @@
                   :disabled="item.lock"
                 />
               </div>
-              <div class="item">
+              <div class="item item-w">
                 <label><em>*</em>责任人</label>
                 <input
                   type="text"
@@ -842,7 +833,7 @@
                   :disabled="item.lock"
                 />
               </div>
-              <div class="item">
+              <div class="item item-w">
                 <label><em>*</em>联系方式</label>
                 <input
                   type="text"
@@ -850,7 +841,7 @@
                   :disabled="item.lock"
                 />
               </div>
-              <div class="item">
+              <div class="item item-w">
                 <label><em>*</em>邮箱</label>
                 <input
                   type="text"
@@ -861,13 +852,14 @@
             </div>
             <h4>IP地址</h4>
             {{ allData.maintainBO.ipList.join('，') }}
-            <div class="report-wrap baseline">
-              <h5>
-                <input
-                  type="checkbox"
-                  v-model="allData.maintainBO.isSaveTable"
-                />系统平台第三方使用管理情况统计表
-              </h5>
+            <h4>
+              <input type="checkbox" v-model="allData.maintainBO.isSaveTable" />
+              系统平台第三方使用管理情况统计表
+            </h4>
+            <div
+              v-if="allData.maintainBO.isSaveTable"
+              class="report-wrap baseline"
+            >
               <br />
               <baseForm class="big-label">
                 <baseFormItem label="系统/平台名称" required>
@@ -2834,7 +2826,7 @@ export default {
             label {
               text-align: right;
               width: 30%;
-              margin-right: 3%;
+              margin-right: 2%;
               em {
                 color: #ff4949;
                 margin-right: 5px;
@@ -2842,7 +2834,7 @@ export default {
             }
             input,
             select {
-              width: 67%;
+              width: 65%;
             }
             button {
               height: 30px;
@@ -2861,6 +2853,16 @@ export default {
               &:hover {
                 text-decoration: underline;
               }
+            }
+          }
+          .item-w {
+            width: 50%;
+            label {
+              width: 20%;
+            }
+            input,
+            select {
+              width: 72%;
             }
           }
         }
