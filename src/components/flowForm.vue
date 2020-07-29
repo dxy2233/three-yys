@@ -1342,6 +1342,31 @@
                   </label>
                 </baseFormItem>
                 <baseFormItem
+                  v-if="allData.maintainBO.table.protocol === 2"
+                  label="附件"
+                  required
+                >
+                  <button
+                    type="button"
+                    @click="
+                      uploadFile(
+                        {
+                          processId: allData.maintainBO.processId,
+                          schedule: allData.maintainBO.schedule,
+                        },
+                        8
+                      )
+                    "
+                    :disabled="item.lock"
+                    style="margin: 0 10px 0 0;"
+                  >
+                    上传文件
+                  </button>
+                  <span class="link" style="margin: 0;">{{
+                    allData.maintainBO.table.protocolFileBO.fileName
+                  }}</span>
+                </baseFormItem>
+                <baseFormItem
                   label="定期检查第三方网络安全责任落实情况周期(月)"
                   required
                 >
@@ -2424,6 +2449,9 @@ export default {
         case 7:
           this.rowInfo.type = '安全评估'
           break
+        case 8:
+          this.rowInfo.type = '保密协议'
+          break
       }
       this.$refs.flowFile.dispatchEvent(new MouseEvent('click'))
     },
@@ -2460,7 +2488,8 @@ export default {
         let temSize = e.target.files[0].size
         uploadFile(formData).then((res) => {
           this.$message({ content: res.message, type: 'success' })
-          if (!this.rowInfo.isExamineFile) this.init()
+          if (!this.rowInfo.isExamineFile && this.rowInfo.type !== '保密协议')
+            this.init()
           else {
             this.rowInfo.examineFilePath = res.data
             this.rowInfo.examineFileName = temName
@@ -2472,6 +2501,12 @@ export default {
             this.meetingForm.fileName = temName
             this.meetingForm.filePath = res.data
             this.meetingForm.fileSize = temSize
+          }
+          // 保密协议
+          if (this.rowInfo.type === '保密协议') {
+            this.allData.maintainBO.table.protocolFileBO.fileName = temName
+            this.allData.maintainBO.table.protocolFileBO.filePath = res.data
+            this.allData.maintainBO.table.protocolFileBO.fileSize = temSize
           }
         })
       }
