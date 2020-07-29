@@ -306,6 +306,14 @@
             否
           </label>
         </baseFormItem>
+        <baseFormItem v-if="form.protocol === 2" label="附件" required>
+          <span
+            @click="download(form.protocolFileBO.fileId, false)"
+            class="link"
+            style="margin: 0; height: 23px;"
+            >{{ form.protocolFileBO.fileName }}</span
+          >
+        </baseFormItem>
         <baseFormItem
           label="定期检查第三方网络安全责任落实情况周期(月)"
           required
@@ -332,6 +340,7 @@ import {
   getProjectList,
   getStatisticsTableByProcessId,
 } from '@/api/process'
+import { downloadFile } from '@/api/file'
 
 export default {
   name: 'Otherterm',
@@ -376,6 +385,9 @@ export default {
         this.form = res.data
         this.dialog = true
       })
+    },
+    download(id, isExamineFile) {
+      downloadFile(id, isExamineFile)
     },
   },
 }
