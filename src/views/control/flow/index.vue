@@ -67,7 +67,7 @@
       <baseCol prop="budget" label="项目预算(万)" />
       <baseCol prop="orgName" label="所属单位" />
       <baseCol prop="facilitator" label="服务商" />
-      <baseCol v-if="tableForm.type === 7" prop="reason" label="暂停原因" />
+      <baseCol v-if="tableForm.type === 6" prop="reason" label="暂停原因" />
       <baseCol
         v-if="info.visibleMap.waitExamine"
         prop="waitExamine"

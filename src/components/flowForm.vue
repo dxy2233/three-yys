@@ -75,7 +75,7 @@
                 </select>
               </div>
               <div class="item">
-                <label><em>*</em>责任单位</label>
+                <label><em>*</em>立项单位</label>
                 <input
                   type="text"
                   v-model="allData.initiateBO.resOrg.org"
@@ -624,14 +624,14 @@
               </baseTable>
             </div>
           </div>
-          <!-- 初验 -->
-          <div v-else-if="item.key === 'acceptFirst'">
+          <!-- 验收 -->
+          <div v-else-if="item.key === 'accept'">
             <div class="items">
               <div class="item item-w">
                 <label><em>*</em>建设单位</label>
                 <input
                   type="text"
-                  v-model="allData.acceptFirstBO.buildOrg.org"
+                  v-model="allData.acceptBO.buildOrg.org"
                   :disabled="item.lock"
                 />
               </div>
@@ -639,7 +639,7 @@
                 <label><em>*</em>责任人</label>
                 <input
                   type="text"
-                  v-model="allData.acceptFirstBO.buildOrg.principal"
+                  v-model="allData.acceptBO.buildOrg.principal"
                   :disabled="item.lock"
                 />
               </div>
@@ -647,7 +647,7 @@
                 <label><em>*</em>联系方式</label>
                 <input
                   type="text"
-                  v-model="allData.acceptFirstBO.buildOrg.tel"
+                  v-model="allData.acceptBO.buildOrg.tel"
                   :disabled="item.lock"
                 />
               </div>
@@ -655,7 +655,7 @@
                 <label><em>*</em>邮箱</label>
                 <input
                   type="text"
-                  v-model="allData.acceptFirstBO.buildOrg.email"
+                  v-model="allData.acceptBO.buildOrg.email"
                   :disabled="item.lock"
                 />
               </div>
@@ -663,7 +663,7 @@
                 <label><em>*</em>承建单位</label>
                 <input
                   type="text"
-                  v-model="allData.acceptFirstBO.contractOrg.org"
+                  v-model="allData.acceptBO.contractOrg.org"
                   :disabled="item.lock"
                 />
               </div>
@@ -671,7 +671,7 @@
                 <label><em>*</em>责任人</label>
                 <input
                   type="text"
-                  v-model="allData.acceptFirstBO.contractOrg.principal"
+                  v-model="allData.acceptBO.contractOrg.principal"
                   :disabled="item.lock"
                 />
               </div>
@@ -679,7 +679,7 @@
                 <label><em>*</em>联系方式</label>
                 <input
                   type="text"
-                  v-model="allData.acceptFirstBO.contractOrg.tel"
+                  v-model="allData.acceptBO.contractOrg.tel"
                   :disabled="item.lock"
                 />
               </div>
@@ -687,7 +687,7 @@
                 <label><em>*</em>邮箱</label>
                 <input
                   type="text"
-                  v-model="allData.acceptFirstBO.contractOrg.email"
+                  v-model="allData.acceptBO.contractOrg.email"
                   :disabled="item.lock"
                 />
               </div>
@@ -696,86 +696,7 @@
                   <em>*</em>验收结论
                 </label>
                 <textarea
-                  v-model="allData.acceptFirstBO.summary"
-                  rows="8"
-                  :disabled="item.lock"
-                ></textarea>
-              </div>
-            </div>
-          </div>
-          <!-- 终验 -->
-          <div v-else-if="item.key === 'acceptFinal'">
-            <div class="items">
-              <div class="item item-w">
-                <label><em>*</em>建设单位</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFinalBO.buildOrg.org"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item item-w">
-                <label><em>*</em>责任人</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFinalBO.buildOrg.principal"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item item-w">
-                <label><em>*</em>联系方式</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFinalBO.buildOrg.tel"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item item-w">
-                <label><em>*</em>邮箱</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFinalBO.buildOrg.email"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item item-w">
-                <label><em>*</em>承建单位</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFinalBO.contractOrg.org"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item item-w">
-                <label><em>*</em>责任人</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFinalBO.contractOrg.principal"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item item-w">
-                <label><em>*</em>联系方式</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFinalBO.contractOrg.tel"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item item-w">
-                <label><em>*</em>邮箱</label>
-                <input
-                  type="text"
-                  v-model="allData.acceptFinalBO.contractOrg.email"
-                  :disabled="item.lock"
-                />
-              </div>
-              <div class="item" style="width: 97%; margin-bottom: 5px;">
-                <label style="width: 11.8%; margin-right: 1%;"
-                  ><em>*</em>验收结论</label
-                >
-                <textarea
-                  v-model="allData.acceptFinalBO.summary"
+                  v-model="allData.acceptBO.summary"
                   rows="8"
                   :disabled="item.lock"
                 ></textarea>
@@ -1468,49 +1389,139 @@
           </baseCol>
         </baseTable>
 
-        <h4>相关文件</h4>
-        <baseTable :tableData="allData[nowKey + 'BO'].fileBOList">
-          <baseCol prop="type" label="类型" />
-          <baseCol prop="name" label="附件名">
-            <template #button="props">
-              <span @click="download(props.row.fileId, false)" class="link">
-                {{ props.row.name }}
-              </span>
-            </template>
-          </baseCol>
-          <baseCol prop="size" label="文件大小" />
-          <baseCol prop="status" label="评审状态">
-            <template #button="props">
-              {{ props.row.status | statusFilter }}
-            </template>
-          </baseCol>
-          <baseCol prop="examineName" label="评审人" />
-          <baseCol prop="uploadName" label="上传人" />
-          <baseCol prop="uploadTime" label="上传时间" />
-          <baseCol label="操作">
-            <template #button="props">
-              <button
-                v-show="props.row.uploadVisible"
-                @click="uploadFile(props.row, 1)"
-              >
-                上传
-              </button>
-              <button
-                v-show="props.row.examineVisible"
-                @click="openExamine(props.row)"
-              >
-                评审
-              </button>
-              <button
-                v-show="props.row.deleteVisible"
-                class="remove"
-                @click="removeFile(props.row.fileId)"
-              >
-                删除文档
-              </button>
-            </template>
-          </baseCol>
-        </baseTable>
+        <template v-if="allData[nowKey + 'BO'].fileBOList">
+          <h4>相关文件</h4>
+          <baseTable :tableData="allData[nowKey + 'BO'].fileBOList">
+            <baseCol prop="type" label="类型" />
+            <baseCol prop="name" label="附件名">
+              <template #button="props">
+                <span @click="download(props.row.fileId, false)" class="link">
+                  {{ props.row.name }}
+                </span>
+              </template>
+            </baseCol>
+            <baseCol prop="size" label="文件大小" />
+            <baseCol prop="status" label="评审状态">
+              <template #button="props">
+                {{ props.row.status | statusFilter }}
+              </template>
+            </baseCol>
+            <baseCol prop="examineName" label="评审人" />
+            <baseCol prop="uploadName" label="上传人" />
+            <baseCol prop="uploadTime" label="上传时间" />
+            <baseCol label="操作">
+              <template #button="props">
+                <button
+                  v-show="props.row.uploadVisible"
+                  @click="uploadFile(props.row, 1)"
+                >
+                  上传
+                </button>
+                <button
+                  v-show="props.row.examineVisible"
+                  @click="openExamine(props.row)"
+                >
+                  评审
+                </button>
+                <button
+                  v-show="props.row.deleteVisible"
+                  class="remove"
+                  @click="removeFile(props.row.fileId)"
+                >
+                  删除文档
+                </button>
+              </template>
+            </baseCol>
+          </baseTable>
+        </template>
+        <template v-else>
+          <h4>初验相关文件</h4>
+          <baseTable :tableData="allData[nowKey + 'BO'].firstFileBOList">
+            <baseCol prop="type" label="类型" />
+            <baseCol prop="name" label="附件名">
+              <template #button="props">
+                <span @click="download(props.row.fileId, false)" class="link">
+                  {{ props.row.name }}
+                </span>
+              </template>
+            </baseCol>
+            <baseCol prop="size" label="文件大小" />
+            <baseCol prop="status" label="评审状态">
+              <template #button="props">
+                {{ props.row.status | statusFilter }}
+              </template>
+            </baseCol>
+            <baseCol prop="examineName" label="评审人" />
+            <baseCol prop="uploadName" label="上传人" />
+            <baseCol prop="uploadTime" label="上传时间" />
+            <baseCol label="操作">
+              <template #button="props">
+                <button
+                  v-show="props.row.uploadVisible"
+                  @click="uploadFile(props.row, 1)"
+                >
+                  上传
+                </button>
+                <button
+                  v-show="props.row.examineVisible"
+                  @click="openExamine(props.row)"
+                >
+                  评审
+                </button>
+                <button
+                  v-show="props.row.deleteVisible"
+                  class="remove"
+                  @click="removeFile(props.row.fileId)"
+                >
+                  删除文档
+                </button>
+              </template>
+            </baseCol>
+          </baseTable>
+          <h4>终验相关文件</h4>
+          <baseTable :tableData="allData[nowKey + 'BO'].finalFileBOList">
+            <baseCol prop="type" label="类型" />
+            <baseCol prop="name" label="附件名">
+              <template #button="props">
+                <span @click="download(props.row.fileId, false)" class="link">
+                  {{ props.row.name }}
+                </span>
+              </template>
+            </baseCol>
+            <baseCol prop="size" label="文件大小" />
+            <baseCol prop="status" label="评审状态">
+              <template #button="props">
+                {{ props.row.status | statusFilter }}
+              </template>
+            </baseCol>
+            <baseCol prop="examineName" label="评审人" />
+            <baseCol prop="uploadName" label="上传人" />
+            <baseCol prop="uploadTime" label="上传时间" />
+            <baseCol label="操作">
+              <template #button="props">
+                <button
+                  v-show="props.row.uploadVisible"
+                  @click="uploadFile(props.row, 1)"
+                >
+                  上传
+                </button>
+                <button
+                  v-show="props.row.examineVisible"
+                  @click="openExamine(props.row)"
+                >
+                  评审
+                </button>
+                <button
+                  v-show="props.row.deleteVisible"
+                  class="remove"
+                  @click="removeFile(props.row.fileId)"
+                >
+                  删除文档
+                </button>
+              </template>
+            </baseCol>
+          </baseTable>
+        </template>
       </article>
     </main>
 
@@ -2032,8 +2043,7 @@ import {
   saveInitiate,
   archiveSchedule,
   saveDesign,
-  saveAcceptFirst,
-  saveAcceptFinal,
+  saveAccept,
   saveMaintain,
   saveConference,
   deleteConference,
@@ -2107,8 +2117,7 @@ export default {
         { txt: '', status: '', visible: '', lock: true, key: 'initiate' },
         { txt: '', status: '', visible: '', lock: true, key: 'design' },
         { txt: '', status: '', visible: '', lock: true, key: 'construction' },
-        { txt: '', status: '', visible: '', lock: true, key: 'acceptFirst' },
-        { txt: '', status: '', visible: '', lock: true, key: 'acceptFinal' },
+        { txt: '', status: '', visible: '', lock: true, key: 'accept' },
         { txt: '', status: '', visible: '', lock: true, key: 'maintain' },
       ],
       allData: {},
@@ -2309,12 +2318,12 @@ export default {
     init(ifSetStep) {
       getProcessById(this.row.processId).then((res) => {
         // 缓存数据
-        let cachData
         if (this.allData.initiateBO) {
-          cachData = {
+          let cachData = {
             initiateBO: {
               org: this.allData.initiateBO.org,
               type: this.allData.initiateBO.type,
+              resOrg: this.allData.initiateBO.resOrg,
             },
             designBO: {
               org: this.allData.designBO.org,
@@ -2323,18 +2332,22 @@ export default {
               email: this.allData.designBO.email,
               address: this.allData.designBO.address,
             },
-            // constructionBO: {},
-            acceptFirstBO: {
-              summary: this.allData.acceptFirstBO.summary,
+            constructionBO: {
+              firmId: this.allData.constructionBO.firmId,
+              buildOrg: this.allData.constructionBO.buildOrg,
+              contractOrg: this.allData.constructionBO.contractOrg,
             },
-            acceptFinalBO: {
-              summary: this.allData.acceptFinalBO.summary,
+            acceptBO: {
+              buildOrg: this.allData.acceptBO.buildOrg,
+              contractOrg: this.allData.acceptBO.contractOrg,
+              summary: this.allData.acceptBO.summary,
             },
-            // maintainBO: {}
+            maintainBO: {
+              maintainOrg: this.allData.maintainBO.maintainOrg,
+              maintainTrader: this.allData.maintainBO.maintainTrader,
+            },
           }
-        }
-        this.allData = res.data
-        if (cachData) {
+          this.allData = res.data
           for (const key in cachData) {
             this.allData[key] = Object.assign(
               {},
@@ -2342,7 +2355,7 @@ export default {
               cachData[key]
             )
           }
-        }
+        } else this.allData = res.data
         // 组合数据
         this.stepData.map((item) => {
           item.txt = this.allData[item.key + 'BO'].schedule
@@ -2394,14 +2407,8 @@ export default {
             this.init()
           })
           break
-        case 'acceptFirst':
-          saveAcceptFirst(this.allData.acceptFirstBO).then((res) => {
-            this.$message({ content: res.message, type: 'success' })
-            this.init()
-          })
-          break
-        case 'acceptFinal':
-          saveAcceptFinal(this.allData.acceptFinalBO).then((res) => {
+        case 'accept':
+          saveAccept(this.allData.acceptBO).then((res) => {
             this.$message({ content: res.message, type: 'success' })
             this.init()
           })
@@ -3024,9 +3031,6 @@ export default {
       }
       button {
         margin-bottom: 10px;
-      }
-      table {
-        padding: 10px 30px;
       }
     }
   }

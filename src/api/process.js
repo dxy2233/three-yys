@@ -62,7 +62,7 @@ export function getProcessById(id) {
  * @param projectName 项目名称
  * @param facilitator 服务商
  * @param orgId 所属部门
- * @param type 必传参数，类型：0 所有；1 立项；2 设计；3 建设；4 初验；5 终验；6 转维；7 暂停；8 完成
+ * @param type 必传参数，类型：0 所有；1 立项；2 设计；3 建设；4 验收；6 运维；7 暂停；8 完成
  */
 export function getProcessList(data) {
   return request({
@@ -111,11 +111,13 @@ export function pauseProcess(id, pause, reason) {
 }
 
 /**
- * @description 保存终验
+ * @description 保存验收
  * @param processId 流程ID
  * @param schedule 项目进度名称
  * @param summary 验收结论
  * @param fileBOList 相关资料
+ * @param firstFileBOList 初验相关资料
+ * @param finalFileBOList 终验相关资料
  * @param buildOrg 建设单位信息
  * @param contractOrg 承建单位信息
  * @param conferenceBOList 会议纪要
@@ -125,32 +127,9 @@ export function pauseProcess(id, pause, reason) {
  * @param conferenceVisible 新增会议纪要按钮是否可见
  * @param status 状态：未开始；进行中；完成；项目暂停
  */
-export function saveAcceptFinal(data) {
+export function saveAccept(data) {
   return request({
-    url: '/process/saveAcceptFinal',
-    method: 'post',
-    data,
-  })
-}
-
-/**
- * @description 保存初验
- * @param processId 流程ID
- * @param schedule 项目进度名称
- * @param summary 验收结论
- * @param fileBOList 相关资料
- * @param buildOrg 建设单位信息
- * @param contractOrg 承建单位信息
- * @param conferenceBOList 会议纪要
- * @param saveVisible 保存按钮是否可见
- * @param editVisible 编辑按钮是否可见
- * @param archiveVisible 归档按钮是否可见
- * @param conferenceVisible 新增会议纪要按钮是否可见
- * @param status 状态：未开始；进行中；完成；项目暂停
- */
-export function saveAcceptFirst(data) {
-  return request({
-    url: '/process/saveAcceptFirst',
+    url: '/process/saveAccept',
     method: 'post',
     data,
   })
@@ -253,16 +232,17 @@ export function saveInitiate(data) {
 }
 
 /**
- * @description 保存转维
+ * @description 保存运维
  * @param processId 流程ID
  * @param schedule 项目进度名称
- * @param description 转维说明
+ * @param description 运维说明
  * @param fileBOList 相关资料
  * @param ipList IP地址
  * @param maintainOrg 维护单位信息
  * @param maintainTrader 第三方维护商信息
  * @param conferenceBOList 会议纪要
  * @param table 第三方使用管理情况统计表
+ * @param isSaveTable 是否保存第三方使用管理情况统计表
  * @param saveVisible 保存按钮是否可见
  * @param editVisible 编辑按钮是否可见
  * @param archiveVisible 归档按钮是否可见
