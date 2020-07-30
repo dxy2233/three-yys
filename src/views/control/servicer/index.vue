@@ -32,7 +32,7 @@
       <button @click="init(true)"><svg-icon icon-class="search" />搜索</button>
     </div>
 
-    <baseTable :tableData="tableData.list">
+    <baseTable :tableData="tableData.list" class="serve-table">
       <baseCol prop="code" label="编号" />
       <baseCol prop="name" label="服务商名称" />
       <baseCol prop="startTime" label="服务开始时间" />
@@ -118,7 +118,7 @@
       </baseForm>
     </baseDialog>
     <!-- 人员管理 -->
-    <baseDialog :visible.sync="dialogStaff">
+    <baseDialog :visible.sync="dialogStaff" class="staff-dialog">
       <template #title>人员管理</template>
       <button
         v-if="info.visibleMap.addFacilitator"
@@ -404,4 +404,27 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.serve-table {
+  /deep/tbody tr td:nth-child(5) {
+    width: 40%;
+  }
+}
+.staff-dialog {
+  /deep/.dialog-body {
+    height: calc(100vh - 35vh);
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 3px;
+    }
+    &::-webkit-scrollbar-track-piece {
+      background-color: #fafafa;
+      border-radius: 3px;
+    }
+    &::-webkit-scrollbar-thumb:vertical {
+      background-color: #ccc;
+      border-radius: 3px;
+    }
+  }
+}
+</style>
