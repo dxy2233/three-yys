@@ -117,3 +117,29 @@ textarea {
 label {
   display: inline-block;
 }
+
+table {
+  border-width: 1px 1px 0;
+  border-style: solid;
+  border-color: #d0e8fa;
+  text-align: center;
+  thead > tr {
+    background: #e7f3fd;
+  }
+  tbody > tr:hover {
+    background: #d0f5ea;
+  }
+  th,
+  td {
+    padding: 5px 0;
+    border-bottom: 1px solid #d0e8fa;
+  }
+  td {
+    &:not(:last-child) {
+      border-right: 1px solid #d0e8fa;
+    }
+    :not(:first-child) {
+      margin-left: 5px;
+    }
+  }
+}
