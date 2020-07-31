@@ -45,6 +45,9 @@
           <button @click.stop="openDialog(props.row)">
             查看
           </button>
+          <button @click.stop="downloadTableRow(props.row.processId)">
+            下载
+          </button>
         </template>
       </baseCol>
     </baseTable>
@@ -339,6 +342,7 @@ import {
   getCity,
   getProjectList,
   getStatisticsTableByProcessId,
+  downloadTableByProcessId,
 } from '@/api/process'
 import { downloadFile } from '@/api/file'
 
@@ -388,6 +392,9 @@ export default {
     },
     download(id, isExamineFile) {
       downloadFile(id, isExamineFile)
+    },
+    downloadTableRow(processId) {
+      downloadTableByProcessId(processId)
     },
   },
 }

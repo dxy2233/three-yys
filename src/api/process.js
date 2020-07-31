@@ -23,6 +23,18 @@ export function deleteConference(id) {
 }
 
 /**
+ * @description 下载第三方使用管理情况统计表
+ */
+export function downloadTableByProcessId(processId) {
+  return request({
+    url: '/process/downloadTableByProcessId',
+    method: 'get',
+    responseType: 'blob',
+    params: { processId },
+  })
+}
+
+/**
  * @description 获取城市信息
  */
 export function getCity() {
