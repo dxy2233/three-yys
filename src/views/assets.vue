@@ -62,6 +62,9 @@
       <button v-if="info.visibleMap.importDevice" @click="downloadTem">
         <svg-icon icon-class="down" />下载模板
       </button>
+      <button @click="downloadAssets">
+        <svg-icon icon-class="down" />导出资产
+      </button>
       <div class="table-wrap">
         <baseTable :tableData="detailTable">
           <baseCol prop="serialNumber" label="序号" />
@@ -200,6 +203,7 @@ import {
   importDevice,
   saveDevice,
   deleteDeviceById,
+  downloadDevice,
 } from '@/api/device'
 import { downloadTemplate } from '@/api/template'
 import { orgTreeSearch } from '@/assets/mixin/common'
@@ -299,6 +303,10 @@ export default {
     // 下载资产模板
     downloadTem() {
       downloadTemplate(2)
+    },
+    // 下载资产
+    downloadAssets() {
+      downloadDevice(this.rowInfo.processId)
     },
     saveInputAssets() {
       if (!this.$refs.inputAssetsForm.validate()) return
