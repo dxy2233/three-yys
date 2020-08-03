@@ -407,7 +407,7 @@ export default {
 <style lang="scss" scoped>
 .serve-table {
   /deep/tbody tr td:nth-child(5) {
-    width: 40%;
+    width: 30%;
   }
 }
 .staff-dialog {
