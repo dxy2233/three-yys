@@ -23,7 +23,7 @@
         />
       </label>
       <label v-if="info.visibleMap.orgTree">
-        所属单位<baseCascader
+        所属部门<baseCascader
           v-if="info.visibleMap.orgTree"
           v-model="tableForm.orgId"
           :data="systemOrgNodeTreeSearch"
@@ -126,7 +126,7 @@
       >
         <svg-icon icon-class="add" />新增人员
       </button>
-      <baseTable :tableData="staffTable">
+      <baseTable :tableData="staffTable.list">
         <baseCol prop="name" label="姓名" />
         <baseCol prop="sex" label="性别">
           <template #button="props">
@@ -153,6 +153,13 @@
           </template>
         </baseCol>
       </baseTable>
+
+      <basePagination
+        :currentPage.sync="staffTableForm.startPage"
+        :total="staffTable.total"
+        :pages="staffTable.pages"
+        @changeCurrentPage="staffTableInit"
+      />
     </baseDialog>
     <!-- 增加/编辑人员 -->
     <baseDialog :visible.sync="dialogStaffOne" @closed="closedStaffOne">
@@ -195,7 +202,7 @@ import {
   saveFacilitatorPerson,
   deleteFacilitatorPersonById,
 } from '@/api/facilitator'
-import { download } from '@/api/sftp'
+import { preview } from '@/api/sftp'
 import { contact } from '@/utils/validate'
 import { orgTreeSearch } from '@/assets/mixin/common'
 import { mapGetters } from 'vuex'
@@ -261,6 +268,10 @@ export default {
         ],
       },
       dialogStaff: false,
+      staffTableForm: {
+        startPage: 1,
+        pageSize: 20,
+      },
       staffTable: [],
       dialogStaffOne: false,
       dialogStaffOneTitle: '',
@@ -275,10 +286,7 @@ export default {
       rulesStaffOne: {
         name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
         sex: [{ required: true, message: '请输入性别', trigger: 'change' }],
-        idCard: [
-          { required: true, message: '请输入身份证', trigger: 'blur' },
-          // { validator: idCard, message: '请输入正确的身份证', trigger: 'blur' }
-        ],
+        idCard: [{ required: true, message: '请输入身份证', trigger: 'blur' }],
         practiceMode: [
           { required: true, message: '请输入联系方式', trigger: 'blur' },
           {
@@ -304,7 +312,7 @@ export default {
       })
     },
     downloadQualification(path) {
-      download(path)
+      preview(path)
     },
     openDialog(type, info) {
       this.dialogTitle = type
@@ -338,10 +346,23 @@ export default {
     },
     // 打开人员管理
     openStaffDialog(type, info) {
-      getPersonByFacilitatorId(info.id).then((res) => {
+      getPersonByFacilitatorId(
+        info.id,
+        this.staffTableForm.pageSize,
+        this.staffTableForm.startPage
+      ).then((res) => {
         this.staffTable = res.data
         this.staffOneForm.facilitatorId = info.id // 添加服务商id
         this.dialogStaff = true
+      })
+    },
+    staffTableInit() {
+      getPersonByFacilitatorId(
+        this.staffOneForm.facilitatorId,
+        this.staffTableForm.pageSize,
+        this.staffTableForm.startPage
+      ).then((res) => {
+        this.staffTable = res.data
       })
     },
     // 新增||编辑人员个人信息

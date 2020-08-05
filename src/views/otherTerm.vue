@@ -344,7 +344,7 @@ import {
   getStatisticsTableByProcessId,
   downloadTableByProcessId,
 } from '@/api/process'
-import { downloadFile } from '@/api/file'
+import { previewFile } from '@/api/file'
 
 export default {
   name: 'Otherterm',
@@ -391,7 +391,7 @@ export default {
       })
     },
     download(id, isExamineFile) {
-      downloadFile(id, isExamineFile)
+      previewFile(id, isExamineFile)
     },
     downloadTableRow(processId) {
       downloadTableByProcessId(processId)

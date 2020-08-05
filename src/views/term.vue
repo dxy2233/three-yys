@@ -30,7 +30,7 @@
         </select>
       </label>
       <label v-if="info.visibleMap.orgTree">
-        所属单位
+        所属部门
         <baseCascader
           v-if="info.visibleMap.orgTree"
           v-model="tableForm.orgId"
@@ -44,7 +44,7 @@
       <baseCol prop="projectCode" label="项目编号" />
       <baseCol prop="projectName" label="项目名称" />
       <baseCol prop="budget" label="项目预算(万)" />
-      <baseCol prop="orgName" label="所属单位" />
+      <baseCol prop="orgName" label="所属部门" />
       <baseCol prop="facilitator" label="服务商" />
       <baseCol prop="initiateStatus" label="立项状态">
         <template #button="props">

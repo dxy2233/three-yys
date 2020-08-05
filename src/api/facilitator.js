@@ -61,11 +61,11 @@ export function getInfoPage(data) {
 /**
  * @description 服务商人员列表
  */
-export function getPersonByFacilitatorId(facilitatorId) {
+export function getPersonByFacilitatorId(facilitatorId, pageSize, startPage) {
   return request({
     url: '/facilitator/getPersonByFacilitatorId',
     method: 'get',
-    params: { facilitatorId },
+    params: { facilitatorId, pageSize, startPage },
   })
 }
 

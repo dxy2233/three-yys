@@ -27,7 +27,6 @@ service.interceptors.request.use(
     return config
   },
   (error) => {
-    // console.log(error)
     return Promise.reject(error)
   }
 )
@@ -35,23 +34,11 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response) => {
     Vue.prototype.$loading(false)
-    if (response.data.type === 'application/octet-stream') {
-      let blob = new Blob([response.data], {
-        type:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8',
-      })
-      let objectUrl = window.URL.createObjectURL(blob)
-      let a = document.createElement('a')
-      a.href = objectUrl
-      let name = decodeURIComponent(response.headers['content-disposition'])
-      a.download = name.slice(name.indexOf('=') + 1)
-      a.click()
-      a.remove()
-      window.URL.revokeObjectURL(objectUrl)
-      return 'ok'
-    }
     const res = response.data
-    if (res.status !== 'ok') {
+    // 跳转预览
+    if (res.status === 'preview') window.open(res.data)
+    else if (res.status === 'ok') return res
+    else {
       if (res.type === 'application/json') {
         Vue.prototype.$message({
           content: '系统异常，请联系管理员!',
@@ -72,8 +59,6 @@ service.interceptors.response.use(
         })
       }
       return Promise.reject(res.message || 'error')
-    } else {
-      return res
     }
   },
   (error) => {

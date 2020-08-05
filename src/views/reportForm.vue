@@ -572,7 +572,7 @@ import {
 } from '@/api/reportCommon'
 import { uploadFlawReport, getFlawListByFileId } from '@/api/flawCommon'
 import { getDeviceAssetsById, getAsstesByDeviceId } from '@/api/device'
-import { download } from '@/api/sftp'
+import { preview } from '@/api/sftp'
 
 export default {
   name: 'ReportForm',
@@ -818,7 +818,7 @@ export default {
       window.close()
     },
     downloadFile(path) {
-      download(path)
+      preview(path)
     },
     removeBaseImg(type, index, index2, imgIndex) {
       this.baseInfo[index].childData[index2][type].splice(imgIndex, 1)

@@ -26,7 +26,6 @@ export const asyncRouterMap = [
     path: '',
     component: Layout,
     redirect: '/filing',
-    alwaysShow: false,
     meta: { title: '项目管控', icon: '' },
     children: {
       xmba: {
@@ -77,7 +76,6 @@ export const asyncRouterMap = [
     path: '/count',
     component: Layout,
     redirect: '/count/chart',
-    alwaysShow: false,
     meta: { title: '数据统计', icon: '' },
     children: {
       xmtj: {
@@ -100,7 +98,6 @@ export const asyncRouterMap = [
     path: '/audit',
     component: Layout,
     redirect: '/audit/check',
-    alwaysShow: false,
     meta: { title: '审计管理', icon: '' },
     children: {
       aqjc: {
@@ -118,7 +115,6 @@ export const asyncRouterMap = [
     path: '/setting',
     component: Layout,
     redirect: '/setting/user',
-    alwaysShow: false,
     meta: { title: '系统设置', icon: '' },
     children: {
       jcrylr: {

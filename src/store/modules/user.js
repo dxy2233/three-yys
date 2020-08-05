@@ -49,9 +49,12 @@ const actions = {
             }
             item.children = filterChildren
           }
-          const allRoutes = router.options.routes.concat(asyncRouterMap)
+          const resRouter = asyncRouterMap.filter(
+            (item) => item.children.length > 0
+          )
+          const allRoutes = router.options.routes.concat(resRouter)
           commit('setRoutes', allRoutes)
-          resolve(asyncRouterMap)
+          resolve(resRouter)
         })
         .catch((err) => {
           reject(err)
@@ -70,9 +73,8 @@ const actions = {
   resetToken({ commit }) {
     return new Promise((resolve) => {
       commit('setToken', '')
-      commit('setInfo', {})
-      commit('setRoutes', [])
       sessionStorage.removeItem('token')
+      router.push({ name: 'Login', params: { reset: true } })
       resolve()
     })
   },

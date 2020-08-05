@@ -11,3 +11,14 @@ export function download(path) {
     params: { path },
   })
 }
+
+/**
+ * @description 预览文件
+ */
+export function preview(path) {
+  return request({
+    url: '/sftp/preview',
+    method: 'get',
+    params: { path },
+  })
+}

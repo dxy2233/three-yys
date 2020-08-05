@@ -151,7 +151,7 @@ export default {
           // { validator: idCard, message: '请输入正确的身份证', trigger: 'blur' }
         ],
         orgNodeName: [
-          { required: true, message: '请输入所属单位名称', trigger: 'blur' },
+          { required: true, message: '请输入所属部门名称', trigger: 'blur' },
         ],
         phone: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },

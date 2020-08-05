@@ -547,10 +547,7 @@
               <baseTable :tableData="FlawTable.flawList">
                 <baseCol prop="fileName" label="漏洞文件名">
                   <template #button="props">
-                    <span
-                      @click="downloadBaseSeepFlaw(props.row.filePath)"
-                      class="link"
-                    >
+                    <span @click="downloadFlaw(props.row.fileId)" class="link">
                       {{ props.row.fileName }}</span
                     >
                   </template>
@@ -597,10 +594,7 @@
               <baseTable :tableData="FlawTable.attachmentList">
                 <baseCol prop="fileName" label="漏洞整改说明附件">
                   <template #button="props">
-                    <span
-                      @click="downloadBaseSeepFlaw(props.row.filePath)"
-                      class="link"
-                    >
+                    <span @click="downloadFlaw(props.row.fileId)" class="link">
                       {{ props.row.fileName }}</span
                     >
                   </template>
@@ -2059,7 +2053,7 @@ import {
 } from '@/api/device'
 import {
   getFlawReportList,
-  downloadFlaw,
+  previewFlaw,
   reviewByFileId,
   deleteFlaw,
   passFlawByProcessId,
@@ -2071,9 +2065,9 @@ import {
   getExamineList,
   saveSuggestion,
   confirm,
-  downloadFile,
+  previewFile,
 } from '@/api/file'
-import { download } from '@/api/sftp'
+import { preview } from '@/api/sftp'
 import { getOrgPersonByIds, getProcessOrgNodeTree } from '@/api/systemOrgNode'
 import { getDictionaryValue } from '@/api/dictionary'
 import { downloadTemplate } from '@/api/template'
@@ -2531,7 +2525,7 @@ export default {
     },
     // 下载文件
     download(id, isExamineFile, ifInit) {
-      downloadFile(id, isExamineFile).then(() => {
+      previewFile(id, isExamineFile).then(() => {
         if (ifInit) this.init()
       })
     },
@@ -2541,13 +2535,13 @@ export default {
     },
     // 下载漏洞文件
     downloadFlaw(fileId) {
-      downloadFlaw(fileId).then(() => {
+      previewFlaw(fileId).then(() => {
         this.initFlawRepor()
       })
     },
-    // 基线、渗透、漏洞下载
+    // 基线、渗透
     downloadBaseSeepFlaw(path) {
-      download(path)
+      preview(path)
     },
     // 删除文件
     removeFile(id) {

@@ -263,10 +263,10 @@ import {
   getReportList,
   uploadReport,
   getRelateFileListById,
-  downloadReport,
+  previewReport,
   confirm,
 } from '@/api/examinationGroup'
-import { downloadFile } from '@/api/file'
+import { previewFile } from '@/api/file'
 import { orgTreeSearch } from '@/assets/mixin/common'
 import { mapGetters } from 'vuex'
 
@@ -408,10 +408,10 @@ export default {
     download(type, info) {
       switch (type) {
         case 1:
-          downloadFile(info.fileId, info.isExamineFile)
+          previewFile(info.fileId, info.isExamineFile)
           break
         case 2:
-          downloadReport(info.id)
+          previewReport(info.id)
           break
       }
     },

@@ -59,9 +59,8 @@ export default {
     }
   },
   methods: {
-    async logout() {
-      await this.$store.dispatch('user/logout')
-      this.$router.push({ name: 'Login', params: { reset: true } })
+    logout() {
+      this.$store.dispatch('user/logout')
     },
     openDialog() {
       this.form.userId = this.info.id

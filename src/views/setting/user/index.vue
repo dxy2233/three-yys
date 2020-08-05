@@ -27,7 +27,7 @@
         placeholder="请输入手机号"
         v-model="tableForm.phone"
       />
-      <label for="orgId">所属单位</label>
+      <label for="orgId">所属部门</label>
       <baseCascader
         id="orgId"
         v-model="tableForm.orgId"
@@ -46,7 +46,7 @@
           {{ props.row.roles | roleFilter }}
         </template>
       </baseCol>
-      <baseCol prop="orgName" label="所属单位" />
+      <baseCol prop="orgName" label="所属部门" />
       <baseCol prop="address" label="地址" />
       <baseCol prop="remark" label="备注" />
       <baseCol label="操作">
@@ -182,10 +182,10 @@
           <input type="text" v-model="form.address" />
         </baseFormItem>
 
-        <baseFormItem v-if="form.type === 1" label="所属单位">
+        <baseFormItem v-if="form.type === 1" label="所属部门">
           <baseCascader v-model="form.sysOrgNodeId" :data="systemOrgNodeTree" />
         </baseFormItem>
-        <baseFormItem v-if="form.type === 3" label="所属单位">
+        <baseFormItem v-if="form.type === 3" label="所属部门">
           {{ form.orgName }}
         </baseFormItem>
         <baseFormItem v-if="form.type === 5" label="所属厂商">

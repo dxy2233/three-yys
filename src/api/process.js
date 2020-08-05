@@ -74,7 +74,7 @@ export function getProcessById(id) {
  * @param projectName 项目名称
  * @param facilitator 服务商
  * @param orgId 所属部门
- * @param type 必传参数，类型：0 所有；1 立项；2 设计；3 建设；4 验收；6 运维；7 暂停；8 完成
+ * @param type 必传参数，类型：0 所有；1 立项；2 设计；3 建设；4 验收；5 运维；6 暂停；7 完成
  */
 export function getProcessList(data) {
   return request({

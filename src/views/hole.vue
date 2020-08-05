@@ -201,7 +201,7 @@ import {
   repairFlaw,
   downloadWord,
 } from '@/api/flaw'
-import { download } from '@/api/sftp'
+import { preview } from '@/api/sftp'
 import { getMaintainStatusProject } from '@/api/projectInfo'
 import { mapGetters } from 'vuex'
 
@@ -342,7 +342,7 @@ export default {
       this.$refs.holeFile.value = null
     },
     download(path) {
-      download(path)
+      preview(path)
     },
     remove(id) {
       this.$confirm('确认删除？', '提示').then(() => {

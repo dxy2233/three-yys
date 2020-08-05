@@ -30,7 +30,7 @@
         />
       </label>
       <label v-if="info.visibleMap.orgTree">
-        所属单位
+        责任部门
         <baseCascader
           v-model="tableForm.orgId"
           :data="systemOrgNodeTreeSearch"
