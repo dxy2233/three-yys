@@ -67,8 +67,15 @@ export const asyncRouterMap = [
         path: 'otherterm',
         component: () =>
           import(/* webpackChunkName: 'otherterm' */ '../views/otherTerm'),
-        name: 'otherterm',
+        name: 'Otherterm',
         meta: { title: '第三方项目管理情况', icon: 'three' },
+      },
+      xmldxq: {
+        path: 'holedetail',
+        component: () =>
+          import(/* webpackChunkName: 'holedetail' */ '../views/holeDetail'),
+        name: 'HoleDetail',
+        meta: { title: '项目漏洞详情', icon: 'three' },
       },
     },
   },

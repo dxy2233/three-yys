@@ -54,19 +54,19 @@
     <baseDialog :visible.sync="dialog" width="80%">
       <template #title>资产详情</template>
       <button
-        v-if="info.visibleMap.importDevice"
+        v-if="detailTable.importVisible"
         @click="dialogInputAssets = true"
       >
         <svg-icon icon-class="import" />导入资产
       </button>
-      <button v-if="info.visibleMap.importDevice" @click="downloadTem">
+      <button @click="downloadTem">
         <svg-icon icon-class="down" />下载模板
       </button>
       <button @click="downloadAssets">
         <svg-icon icon-class="down" />导出资产
       </button>
       <div class="table-wrap">
-        <baseTable :tableData="detailTable">
+        <baseTable :tableData="detailTable.deviceList">
           <baseCol prop="serialNumber" label="序号" />
           <baseCol prop="importName" label="导入人" />
           <baseCol prop="deviceName" label="设备名称" />
@@ -224,7 +224,7 @@ export default {
       tableData: {},
       rowInfo: {},
       dialog: false,
-      detailTable: [],
+      detailTable: {},
       dialogInputAssets: false,
       inputAssetsForm: {
         importName: '',
@@ -287,7 +287,7 @@ export default {
     openDialog(type, info) {
       this.rowInfo = info
       getDeviceList(info.processId).then((res) => {
-        this.detailTable = res.data.deviceList
+        this.detailTable = res.data
         this.dialog = true
       })
     },
@@ -318,7 +318,7 @@ export default {
       importDevice(this.inputAssetsFormData).then((res) => {
         this.$message({ content: res.message, type: 'success' })
         getDeviceList(this.rowInfo.processId).then((res) => {
-          this.detailTable = res.data.deviceList
+          this.detailTable = res.data
           this.dialogInputAssets = false
         })
       })
@@ -340,7 +340,7 @@ export default {
       saveDevice(this.editAssetsForm).then((res) => {
         this.$message({ content: res.message, type: 'success' })
         getDeviceList(this.rowInfo.processId).then((res) => {
-          this.detailTable = res.data.deviceList
+          this.detailTable = res.data
         })
         this.dialogEditAssets = false
       })
@@ -350,7 +350,7 @@ export default {
         deleteDeviceById(id).then((res) => {
           this.$message({ content: res.message, type: 'success' })
           getDeviceList(this.rowInfo.processId).then((res) => {
-            this.detailTable = res.data.deviceList
+            this.detailTable = res.data
           })
         })
       })
