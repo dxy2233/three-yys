@@ -40,12 +40,15 @@ export function getFlawListByFileId(fileId, pageSize, startPage) {
 
 /**
  * @description 根据流程节点获取漏洞详情列表
+ * @param startPage 页面编号
+ * @param pageSize 页面大小
+ * @param processId 流程id
  */
-export function getFlawListByProcessId(pageSize, processId, startPage) {
+export function getFlawListByProcessId(data) {
   return request({
     url: '/flawcommon/getFlawListByProcessId',
-    method: 'get',
-    params: { pageSize, processId, startPage },
+    method: 'post',
+    data,
   })
 }
 

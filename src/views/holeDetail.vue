@@ -37,8 +37,8 @@
       <baseCol prop="processNode" label="当前所处流程节点" />
       <baseCol label="操作">
         <template #button="props">
-          <button @click="openDialog('编辑备案', props.row)">
-            编辑
+          <button @click="openDialog(props.row.processId)">
+            查看
           </button>
         </template>
       </baseCol>
@@ -50,16 +50,29 @@
       :pages="tableData.pages"
       @changeCurrentPage="init"
     />
+
+    <baseDialog :visible.sync="dialog" top="0" width="80%">
+      <template #title>漏洞详情</template>
+      <holeFile
+        :tableForm="holeFileTableForm"
+        :tableData="holeFileTableData"
+        @init="hoelFileInit"
+      />
+    </baseDialog>
   </div>
 </template>
 
 <script>
-import { getFlawListByFileId } from '@/api/flawCommon'
+import { getFlawDetailInfoPage, getFlawListByProcessId } from '@/api/flawCommon'
 import { orgTreeSearch } from '@/assets/mixin/common'
+import holeFile from '@/components/holeFile'
 
 export default {
   name: 'HoleDetail',
   mixins: [orgTreeSearch],
+  components: {
+    holeFile,
+  },
   data() {
     return {
       tableForm: {
@@ -71,14 +84,34 @@ export default {
       },
       tableData: {},
       dialog: false,
-      dialogTitle: '',
+      holeFileTableForm: {
+        startPage: 1,
+        pageSize: 20,
+        processId: '',
+      },
+      holeFileTableData: {},
     }
+  },
+  created() {
+    this.init()
   },
   methods: {
     init(isSearch) {
       if (isSearch) this.tableForm.startPage = 1
-      getFlawListByFileId(this.tableForm).then((res) => {
+      getFlawDetailInfoPage(this.tableForm).then((res) => {
         this.tableData = res.data
+      })
+    },
+    openDialog(processId) {
+      this.holeFileTableForm.processId = processId
+      getFlawListByProcessId(this.holeFileTableForm).then((res) => {
+        this.holeFileTableData = res.data
+        this.dialog = true
+      })
+    },
+    hoelFileInit() {
+      getFlawListByProcessId(this.holeFileTableForm).then((res) => {
+        this.holeFileTableData = res.data
       })
     },
   },
