@@ -46,7 +46,7 @@
             查看
           </button>
           <button @click.stop="downloadTableRow(props.row.processId)">
-            下载
+            导出
           </button>
         </template>
       </baseCol>
@@ -60,9 +60,7 @@
     />
 
     <baseDialog :visible.sync="dialog" top="0">
-      <template #title
-        >{{ dialogTitle }}公司系统平台第三方使用管理情况统计表</template
-      >
+      <template #title>{{ dialogTitle }}第三方使用管理情况统计表</template>
       <baseForm ref="otherTermForm" :form="form">
         <!-- <baseFormItem label="项目名称" required>
           <input type="text" v-model="form.platformName" />
