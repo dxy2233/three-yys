@@ -103,6 +103,7 @@ export default {
       })
     },
     openDialog(processId) {
+      this.holeFileTableForm.startPage = 1
       this.holeFileTableForm.processId = processId
       getFlawListByProcessId(this.holeFileTableForm).then((res) => {
         this.holeFileTableData = res.data

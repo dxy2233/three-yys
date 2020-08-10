@@ -75,7 +75,7 @@ export const asyncRouterMap = [
         component: () =>
           import(/* webpackChunkName: 'holedetail' */ '../views/holeDetail'),
         name: 'HoleDetail',
-        meta: { title: '项目漏洞详情', icon: 'three' },
+        meta: { title: '项目漏洞详情', icon: 'loophole' },
       },
     },
   },

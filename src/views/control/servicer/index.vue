@@ -433,7 +433,7 @@ export default {
 }
 .staff-dialog {
   /deep/.dialog-body {
-    height: calc(100vh - 35vh);
+    max-height: calc(100vh - 35vh);
     overflow-y: auto;
     &::-webkit-scrollbar {
       width: 3px;
