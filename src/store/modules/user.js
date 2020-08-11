@@ -1,7 +1,7 @@
 import { asyncRouterMap } from '@/router/index'
 import router from '@/router'
-import { login, logout } from '@/api/special'
-import { getUser } from '@/api/login'
+import { login, logout } from '@api/special'
+import { getUser } from '@api/login'
 
 const state = {
   token: sessionStorage.getItem('token'),

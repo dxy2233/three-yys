@@ -341,8 +341,8 @@ import {
   getProjectList,
   getStatisticsTableByProcessId,
   downloadTableByProcessId,
-} from '@/api/process'
-import { previewFile } from '@/api/file'
+} from '@api/process'
+import { previewFile } from '@api/file'
 
 export default {
   name: 'Otherterm',

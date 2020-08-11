@@ -210,9 +210,9 @@ import {
   resetPassword,
   saveUser,
   unLockUser,
-} from '@/api/user'
-import { getRoles } from '@/api/role'
-import { getFacilitatorAndPerson } from '@/api/facilitator'
+} from '@api/user'
+import { getRoles } from '@api/role'
+import { getFacilitatorAndPerson } from '@api/facilitator'
 import { contact } from '@/utils/validate'
 import { orgTree } from '@/assets/mixin/common'
 import { mapGetters } from 'vuex'

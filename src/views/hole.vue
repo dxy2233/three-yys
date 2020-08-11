@@ -200,9 +200,9 @@ import {
   importFlaw,
   repairFlaw,
   downloadWord,
-} from '@/api/flaw'
-import { preview } from '@/api/sftp'
-import { getMaintainStatusProject } from '@/api/projectInfo'
+} from '@api/flaw'
+import { preview } from '@api/sftp'
+import { getMaintainStatusProject } from '@api/projectInfo'
 import { mapGetters } from 'vuex'
 
 export default {

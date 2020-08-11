@@ -152,7 +152,7 @@
 </template>
 
 <script>
-import { getYearStatistics, getStatisticsByType } from '@/api/statistics'
+import { getYearStatistics, getStatisticsByType } from '@api/statistics'
 let echarts = require('echarts/lib/echarts')
 require('echarts/lib/chart/bar')
 require('echarts/lib/chart/line')

@@ -155,8 +155,8 @@
 </template>
 
 <script>
-import { getProcessList } from '@/api/process'
-import { getFacilitatorNameList } from '@/api/facilitator'
+import { getProcessList } from '@api/process'
+import { getFacilitatorNameList } from '@api/facilitator'
 import { orgTreeSearch } from '@/assets/mixin/common'
 import { mapGetters } from 'vuex'
 import flowForm from '@/components/flowForm'

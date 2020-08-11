@@ -201,8 +201,8 @@ import {
   getPersonByFacilitatorId,
   saveFacilitatorPerson,
   deleteFacilitatorPersonById,
-} from '@/api/facilitator'
-import { preview } from '@/api/sftp'
+} from '@api/facilitator'
+import { preview } from '@api/sftp'
 import { contact } from '@/utils/validate'
 import { orgTreeSearch } from '@/assets/mixin/common'
 import { mapGetters } from 'vuex'
@@ -346,6 +346,7 @@ export default {
     },
     // 打开人员管理
     openStaffDialog(type, info) {
+      this.staffTableForm.startPage = 1
       getPersonByFacilitatorId(
         info.id,
         this.staffTableForm.pageSize,

@@ -413,8 +413,8 @@ import {
   getPenetrationByProjectId,
   savePenetration,
   reformPenetration,
-} from '@/api/reportCommon'
-import { download } from '@/api/sftp'
+} from '@api/reportCommon'
+import { download } from '@api/sftp'
 
 export default {
   name: 'Report',

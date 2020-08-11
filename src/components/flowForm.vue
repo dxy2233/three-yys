@@ -2044,21 +2044,21 @@ import {
   getConferenceById,
   saveConstruction,
   getCity,
-} from '@/api/process'
+} from '@api/process'
 import {
   getDeviceList,
   saveDevice,
   deleteDeviceById,
   importDevice,
-} from '@/api/device'
+} from '@api/device'
 import {
   getFlawReportList,
   previewFlaw,
   reviewByFileId,
   deleteFlaw,
   passFlawByProcessId,
-} from '@/api/flawCommon'
-import { getBaseOnlineAndPenetration } from '@/api/reportCommon'
+} from '@api/flawCommon'
+import { getBaseOnlineAndPenetration } from '@api/reportCommon'
 import {
   uploadFile,
   deleteFile,
@@ -2066,18 +2066,18 @@ import {
   saveSuggestion,
   confirm,
   previewFile,
-} from '@/api/file'
-import { preview } from '@/api/sftp'
-import { getOrgPersonByIds, getProcessOrgNodeTree } from '@/api/systemOrgNode'
-import { getDictionaryValue } from '@/api/dictionary'
-import { downloadTemplate } from '@/api/template'
-import { getFirmManageAll } from '@/api/firmManage'
+} from '@api/file'
+import { preview } from '@api/sftp'
+import { getOrgPersonByIds, getProcessOrgNodeTree } from '@api/systemOrgNode'
+import { getDictionaryValue } from '@api/dictionary'
+import { downloadTemplate } from '@api/template'
+import { getFirmManageAll } from '@api/firmManage'
 import {
   createReportEvaluation,
   uploadImg,
   getEnumList,
   checkConstruction,
-} from '@/api/reportEvaluation'
+} from '@api/reportEvaluation'
 import { orgTree } from '@/assets/mixin/common'
 
 export default {

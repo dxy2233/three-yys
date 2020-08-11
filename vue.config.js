@@ -10,13 +10,9 @@ module.exports = {
   css: {
     sourceMap: false,
   },
-  // devServer: {
-  //   overlay: {
-  //     warnings: true,
-  //     errors: true
-  //   }
-  // },
   chainWebpack(config) {
+    // api路径
+    config.resolve.alias.set('@api', resolve('src/api/yys')).end()
     // set svg-sprite-loader
     config.module.rule('svg').exclude.add(resolve('src/icons')).end()
     config.module

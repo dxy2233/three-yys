@@ -208,10 +208,10 @@ import {
   saveProjectInfo,
   deleteProjectInfoById,
   importProject,
-} from '@/api/projectInfo'
-import { getSystemOrgNodeTreeById } from '@/api/systemOrgNode'
-import { downloadTemplate } from '@/api/template'
-import { getFacilitatorNameList } from '@/api/facilitator'
+} from '@api/projectInfo'
+import { getSystemOrgNodeTreeById } from '@api/systemOrgNode'
+import { downloadTemplate } from '@api/template'
+import { getFacilitatorNameList } from '@api/facilitator'
 import { projectCode } from '@/utils/validate'
 import { orgTreeSearch } from '@/assets/mixin/common'
 import { mapGetters } from 'vuex'

@@ -51,7 +51,7 @@
       @changeCurrentPage="init"
     />
 
-    <baseDialog :visible.sync="dialog" top="0" width="80%">
+    <baseDialog :visible.sync="dialog" top="0" width="80%" class="scroll">
       <template #title>漏洞详情</template>
       <holeFile
         :tableForm="holeFileTableForm"
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { getFlawDetailInfoPage, getFlawListByProcessId } from '@/api/flawCommon'
+import { getFlawDetailInfoPage, getFlawListByProcessId } from '@api/flawCommon'
 import { orgTreeSearch } from '@/assets/mixin/common'
 import holeFile from '@/components/holeFile'
 
@@ -119,4 +119,11 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped></style>
+<style lang="scss" scoped>
+.scroll {
+  /deep/ .dialog-body {
+    max-height: calc(100vh - 45px);
+    overflow-y: auto;
+  }
+}
+</style>

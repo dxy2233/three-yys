@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import { getExpertPage, save, deleteById } from '@/api/expert'
+import { getExpertPage, save, deleteById } from '@api/expert'
 import { contact, email } from '@/utils/validate'
 import { mapGetters } from 'vuex'
 

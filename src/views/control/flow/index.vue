@@ -124,9 +124,9 @@
 </template>
 
 <script>
-import { getProcessList, pauseProcess } from '@/api/process'
-import { getFacilitatorNameList } from '@/api/facilitator'
-import { getStatisticsByType } from '@/api/statistics'
+import { getProcessList, pauseProcess } from '@api/process'
+import { getFacilitatorNameList } from '@api/facilitator'
+import { getStatisticsByType } from '@api/statistics'
 import { orgTreeSearch } from '@/assets/mixin/common'
 import { mapGetters } from 'vuex'
 import flowForm from '@/components/flowForm'

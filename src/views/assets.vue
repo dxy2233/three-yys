@@ -197,15 +197,15 @@
 </template>
 
 <script>
-import { getProcessList } from '@/api/process'
+import { getProcessList } from '@api/process'
 import {
   getDeviceList,
   importDevice,
   saveDevice,
   deleteDeviceById,
   downloadDevice,
-} from '@/api/device'
-import { downloadTemplate } from '@/api/template'
+} from '@api/device'
+import { downloadTemplate } from '@api/template'
 import { orgTreeSearch } from '@/assets/mixin/common'
 import { mapGetters } from 'vuex'
 

@@ -499,10 +499,10 @@ import {
   getPenetrationByProcessId,
   reformPenetration,
   saveReviewPenetration,
-} from '@/api/reportCommon'
-import { uploadFlawReport, getFlawListByFileId } from '@/api/flawCommon'
-import { getDeviceAssetsById, getAsstesByDeviceId } from '@/api/device'
-import { preview } from '@/api/sftp'
+} from '@api/reportCommon'
+import { uploadFlawReport, getFlawListByFileId } from '@api/flawCommon'
+import { getDeviceAssetsById, getAsstesByDeviceId } from '@api/device'
+import { preview } from '@api/sftp'
 import holeFile from '@/components/holeFile'
 
 export default {

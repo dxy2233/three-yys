@@ -265,8 +265,8 @@ import {
   getRelateFileListById,
   previewReport,
   confirm,
-} from '@/api/examinationGroup'
-import { previewFile } from '@/api/file'
+} from '@api/examinationGroup'
+import { previewFile } from '@api/file'
 import { orgTreeSearch } from '@/assets/mixin/common'
 import { mapGetters } from 'vuex'
 

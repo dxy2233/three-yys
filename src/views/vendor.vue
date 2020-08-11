@@ -60,11 +60,7 @@
 </template>
 
 <script>
-import {
-  getFirmManagePage,
-  save,
-  deleteProjectInfoById,
-} from '@/api/firmManage'
+import { getFirmManagePage, save, deleteProjectInfoById } from '@api/firmManage'
 
 export default {
   name: 'Vendor',
