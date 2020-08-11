@@ -220,6 +220,7 @@ export default {
         projectCode: '',
         projectName: '',
         type: 0,
+        from: 1,
       },
       tableData: {},
       rowInfo: {},
