@@ -17,7 +17,7 @@
       <input
         type="text"
         id="name"
-        placeholder="请输入检查人员姓名"
+        placeholder="请输入姓名"
         v-model="tableForm.name"
       />
       <label for="phone">联系方式</label>
