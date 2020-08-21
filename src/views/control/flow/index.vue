@@ -194,7 +194,7 @@ export default {
       //   this.amCount++
       // }, 3000)
       this.tableForm.type = type
-      this.init()
+      this.init(true)
     },
     openDialog(row) {
       this.selectedRow = row
