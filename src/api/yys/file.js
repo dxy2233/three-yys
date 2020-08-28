@@ -34,7 +34,7 @@ export function getExamineList(fileId) {
 }
 
 /**
- * @description 流程管控 预览文件：isExamineFile 是否是评审文件，isView是否预览
+ * @description 流程管控 预览文件：isExamineFile 是否是评审文件
  */
 export function previewFile(fileId, isExamineFile) {
   return request({

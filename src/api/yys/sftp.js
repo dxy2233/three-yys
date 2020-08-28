@@ -22,3 +22,14 @@ export function preview(path) {
     params: { path },
   })
 }
+
+/**
+ * @description 上传文件到临时文件夹
+ */
+export function uploadTempFile(data) {
+  return request({
+    url: '/sftp/uploadTempFile',
+    method: 'post',
+    data,
+  })
+}

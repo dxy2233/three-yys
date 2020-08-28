@@ -63,10 +63,11 @@ export function getProcessOrgNodeTree(processId) {
 /**
  * @description 搜索框单位下拉列表单位树
  */
-export function getSearchNodeTree() {
+export function getSearchNodeTree(type) {
   return request({
     url: '/systemorgnode/getSearchNodeTree',
     method: 'get',
+    params: { type },
   })
 }
 
@@ -84,10 +85,11 @@ export function getSystemOrgById(id) {
 /**
  * @description 根据登录用户查询部门列表
  */
-export function getSystemOrgNodeTree() {
+export function getSystemOrgNodeTree(type) {
   return request({
     url: '/systemorgnode/getSystemOrgNodeTree',
     method: 'get',
+    params: { type },
   })
 }
 
